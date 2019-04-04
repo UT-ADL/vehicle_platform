@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=true
+Exec=bash -ci 'roslaunch vehicle_platform visualization.launch --screen'
+Name=Sensor Visualization
+Comment=Sensor Visualization
+Icon=/usr/share/icons/Tango/scalable/actions/view-fullscreen.svg

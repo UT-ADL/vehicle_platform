@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=true
+Exec=bash -ci 'roslaunch pacmod_game_control pacmod_game_control.launch --screen'
+Name=PACMod Game Control
+Comment=The AStuff Joystick Demo
+Icon=/usr/share/icons/Tango/scalable/devices/input-gaming.svg

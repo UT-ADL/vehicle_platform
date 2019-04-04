@@ -1,0 +1,20 @@
+<package format="2">
+  <name>vehicle_platform</name>
+  <version>1.0.0</version>
+  <description>The vehicle_platform package</description>
+  <license>Closed-Source</license>
+  <author email="icolwell@autonomoustuff.com">Ian Colwell</author>
+  <maintainer email="icolwell@autonomoustuff.com">Ian Colwell</maintainer>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>avt_vimba_camera</exec_depend>
+  <exec_depend>velodyne</exec_depend>
+  <exec_depend>mobileye_560_660</exec_depend>
+  <exec_depend>novatel_gps_driver</exec_depend>
+  <exec_depend>delphi_esr</exec_depend>
+  <exec_depend>delphi_srr</exec_depend>
+  <exec_depend>pacmod3</exec_depend>
+  <exec_depend>pacmod_game_control</exec_depend>
+  <exec_depend>kvaser_interface</exec_depend>
+</package>

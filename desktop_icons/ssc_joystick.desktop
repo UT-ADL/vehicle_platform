@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=true
+Exec=bash -ci 'roslaunch ssc_joystick ssc_joystick.launch --screen'
+Name=SSC Joystick
+Comment=The AStuff SSC Joystick Demo
+Icon=/usr/share/icons/Tango/scalable/devices/input-gaming.svg

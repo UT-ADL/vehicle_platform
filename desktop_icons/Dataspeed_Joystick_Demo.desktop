@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=true
+Exec=bash -ci 'roslaunch dbw_mkz_joystick_demo joystick_demo.launch sys:=true'
+Name=Joystick Demo
+Comment=The Dataspeed Joystick Demo
+Icon=/usr/share/icons/Tango/scalable/devices/input-gaming.svg
+Name[en_US]=Dataspeed Joystick Demo
