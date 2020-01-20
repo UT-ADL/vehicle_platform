@@ -4,12 +4,7 @@
   <arg name="lidar_min_dist" default="0.4" />
   <arg name="use_camera_fl" default="false" />
   <arg name="use_camera_fr" default="false" />
-  <arg name="use_mobileye" default="false" />
   <arg name="use_radar_fc" default="false" />
-  <arg name="use_radar_fl" default="false" />
-  <arg name="use_radar_fr" default="false" />
-  <arg name="use_radar_rl" default="false" />
-  <arg name="use_radar_rr" default="false" />
   <arg name="use_gps" default="false" />
   <arg name="use_dbw" default="false" />
   <arg name="use_ssc" default="false" />
@@ -27,7 +22,7 @@
   <include if="$(arg use_camera_fl)" file="$(find vehicle_platform)/launch/avt_vimba_camera.launch">
     <arg name="name" value="camera_fl" />
     <arg name="frame_id" value="camera_fl" />
-    <arg name="ip" value="192.168.30.1" />
+    <arg name="ip" value="192.168.20.1" />
     <arg name="acquisition_rate" value="20" />
   </include>
 
@@ -35,18 +30,8 @@
   <include if="$(arg use_camera_fr)" file="$(find vehicle_platform)/launch/avt_vimba_camera.launch">
     <arg name="name" value="camera_fr" />
     <arg name="frame_id" value="camera_fr" />
-    <arg name="ip" value="192.168.40.1" />
+    <arg name="ip" value="192.168.10.1" />
     <arg name="acquisition_rate" value="20" />
-  </include>
-
-  <!-- MOBILEYE -->
-  <include if="$(arg use_mobileye)" file="$(find mobileye_560_660)/launch/mobileye_560_660.launch" ns="mobileye">
-    <arg name="sensor_frame_id" value="mobileye" />
-    <!-- TODO: what is the difference between these two frame ids? -->
-    <arg name="viz_frame_id" value="mobileye" />
-    <arg name="use_kvaser" value="true" />
-    <arg name="kvaser_hardware_id" value="10560" />
-    <arg name="kvaser_circuit_id" value="1" />
   </include>
 
   <!-- RADARS -->
@@ -55,49 +40,13 @@
     <arg name="esr_frame_id" value="radar_fc" />
     <arg name="viz_mature_tracks_only" value="true" />
     <arg name="use_kvaser" value="true" />
-    <arg name="kvaser_hardware_id" value="50452" />
-    <arg name="kvaser_circuit_id" value="0" />
-  </include>
-
-  <!-- Front Left SSR -->
-  <include if="$(arg use_radar_fl)" file="$(find delphi_srr)/launch/delphi_srr.launch" ns="radar_fl">
-    <arg name="srr_frame_id" value="radar_fl" />
-    <arg name="srr_side" value="left" />
-    <arg name="use_kvaser" value="true" />
-    <arg name="kvaser_hardware_id" value="10560" />
-    <arg name="kvaser_circuit_id" value="2" />
-  </include>
-
-  <!-- Front Right SSR -->
-  <include if="$(arg use_radar_fr)" file="$(find delphi_srr)/launch/delphi_srr.launch" ns="radar_fr">
-    <arg name="srr_frame_id" value="radar_fr" />
-    <arg name="srr_side" value="right" />
-    <arg name="use_kvaser" value="true" />
-    <arg name="kvaser_hardware_id" value="10560" />
-    <arg name="kvaser_circuit_id" value="2" />
-  </include>
-
-  <!-- Rear Left SSR -->
-  <include if="$(arg use_radar_rl)" file="$(find delphi_srr)/launch/delphi_srr.launch" ns="radar_rl">
-    <arg name="srr_frame_id" value="radar_rl" />
-    <arg name="srr_side" value="left" />
-    <arg name="use_kvaser" value="true" />
-    <arg name="kvaser_hardware_id" value="10560" />
-    <arg name="kvaser_circuit_id" value="3" />
-  </include>
-
-  <!-- Rear Right SSR -->
-  <include if="$(arg use_radar_rr)" file="$(find delphi_srr)/launch/delphi_srr.launch" ns="radar_rr">
-    <arg name="srr_frame_id" value="radar_rr" />
-    <arg name="srr_side" value="right" />
-    <arg name="use_kvaser" value="true" />
-    <arg name="kvaser_hardware_id" value="10560" />
-    <arg name="kvaser_circuit_id" value="3" />
+    <arg name="kvaser_hardware_id" value="10761" />
+    <arg name="kvaser_circuit_id" value="1" />
   </include>
 
   <!-- GPS -->
   <include if="$(arg use_gps)" file="$(find vehicle_platform)/launch/novatel_gps_driver.launch">
-    <arg name="ip" value="192.168.74.10" />
+    <arg name="ip" value="192.168.100.150" />
     <arg name="port" value="2000" />
     <arg name="imu_rate" value="100" />
   </include>
@@ -106,7 +55,7 @@
   <include if="$(arg use_dbw)" file="$(find pacmod3)/launch/pacmod3.launch" ns="pacmod">
     <arg name="pacmod_vehicle_type" value="LEXUS_RX_450H" />
     <arg name="use_kvaser" value="true" />
-    <arg name="kvaser_hardware_id" value="10560" />
+    <arg name="kvaser_hardware_id" value="10761" />
     <arg name="kvaser_circuit_id" value="0" />
   </include>
 

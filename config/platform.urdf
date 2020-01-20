@@ -2,12 +2,8 @@
   <!-- Frames -->
   <link name="base_link" />
   <link name="lidar" />
-  <link name="mobileye" />
-  <link name="radar_fl" />
   <link name="radar_fc" />
-  <link name="radar_fr" />
-  <link name="radar_rl" />
-  <link name="radar_rr" />
+  <link name="imu" />
 
   <!-- Sensor Transforms -->
 
@@ -15,48 +11,21 @@
   <joint name="lidar" type="fixed" >
     <parent link="base_link" />
     <child link="lidar" />
-    <origin xyz="1.02 0 2.23" rpy="0 0 0" />
-  </joint>
-
-  <!-- Mobileye -->
-  <joint name="mobileye" type="fixed" >
-    <parent link="base_link" />
-    <child link="mobileye" />
-    <origin xyz="2.195 0 1.78" rpy="0 0 0" />
+    <origin xyz="1.02 0 1.78734" rpy="0 0 0" />
   </joint>
 
   <!-- Front Center Radar -->
   <joint name="radar_fc" type="fixed" >
     <parent link="base_link" />
     <child link="radar_fc" />
-    <origin xyz="4 0 0.57" rpy="0 0 0" />
+    <origin xyz="4 0 0.07" rpy="0 0 0" />
   </joint>
 
-  <!-- Front Left Radar -->
-  <joint name="radar_fl" type="fixed" >
+ <!-- Imu -->
+  <joint name="imu" type="fixed" >
     <parent link="base_link" />
-    <child link="radar_fl" />
-    <origin xyz="3.42 1.02 0.535" rpy="0 0 0.698" />
+    <child link="imu" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
   </joint>
 
-  <!-- Front Right Radar -->
-  <joint name="radar_fr" type="fixed" >
-    <parent link="base_link" />
-    <child link="radar_fr" />
-    <origin xyz="3.42 -1.02 0.535" rpy="0 0 -0.698" />
-  </joint>
-
-  <!-- Rear Left Radar -->
-  <joint name="radar_rl" type="fixed" >
-    <parent link="base_link" />
-    <child link="radar_rl" />
-    <origin xyz="-0.85 1.05 0.535" rpy="0 0 2.094" />
-  </joint>
-
-  <!-- Rear Right Radar -->
-  <joint name="radar_rr" type="fixed" >
-    <parent link="base_link" />
-    <child link="radar_rr" />
-    <origin xyz="-0.85 -1.05 0.535" rpy="0 0 -2.094" />
-  </joint>
 </robot>

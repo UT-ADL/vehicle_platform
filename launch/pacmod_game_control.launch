@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find vehicle_platform)/launch/platform.launch">
+    <arg name="use_dbw" value="true" />
+  </include>
+
+  <include file="$(find pacmod_game_control)/launch/pacmod_game_control.launch">
+    <arg name="launch_pacmod" value="false" />
+    <arg name="pacmod_vehicle_type" value="LEXUS_RX_450H" />
+  </include>
+</launch>

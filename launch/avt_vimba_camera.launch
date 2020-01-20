@@ -5,8 +5,8 @@
   <arg name="frame_id" default="camera" doc="The frame id of the camera"/>
   <arg name="image_proc" default="false" doc="Enable the use of image_proc"/>
   <arg name="acquisition_rate" default="10" doc="Camera framerate in Hz"/>
-  <arg name="width" default="1920" doc="Width of image in pixels"/>
-  <arg name="height" default="1440" doc="Height of image in pixels"/>
+  <arg name="width" default="2064" doc="Width of image in pixels"/>
+  <arg name="height" default="1544" doc="Height of image in pixels"/>
 
   <!-- Image proccessing -->
   <node if="$(arg image_proc)" name="image_proc" pkg="image_proc" type="image_proc" ns="$(arg name)"/>
@@ -25,11 +25,11 @@
     <param name="pixel_format" value="BayerRG8" />
 
     <!-- Exposure params  -->
-    <param name="exposure" value="1000" />
-    <param name="gain" value="0" />
-    <param name="exposure_auto" value="Continuous" />
-    <param name="gain_auto" value="Continuous" />
-    <param name="whitebalance_auto" value="Continuous" />
+    <param name="exposure" value="10000" />
+    <param name="gain" value="20" />
+    <param name="exposure_auto" value="Off" />
+    <param name="gain_auto" value="Off" />
+    <param name="whitebalance_auto" value="Off" />
 
     <!-- Image params -->
     <param name="binning_x" value="1" />
@@ -41,6 +41,6 @@
     <param name="width" value="$(arg width)" />
     <param name="height" value="$(arg height)" />
 
-    <param name="stream_bytes_per_second" value="45000000"/>
+    <param name="stream_bytes_per_second" value="100000000"/>
   </node>
 </launch>

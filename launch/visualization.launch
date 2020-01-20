@@ -4,12 +4,7 @@
     <arg name="use_lidar" value="true" />
     <arg name="use_camera_fl" value="true" />
     <arg name="use_camera_fr" value="true" />
-    <arg name="use_mobileye" value="true" />
     <arg name="use_radar_fc" value="true" />
-    <arg name="use_radar_fl" value="true" />
-    <arg name="use_radar_fr" value="true" />
-    <arg name="use_radar_rl" value="true" />
-    <arg name="use_radar_rr" value="true" />
     <arg name="use_gps" value="true" />
     <arg name="use_dbw" value="false" />
     <arg name="use_tf" value="true" />
