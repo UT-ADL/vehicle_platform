@@ -1,0 +1,10 @@
+image: ros:melodic-ros-base
+
+before_script:
+ - apt-get update && apt-get install libxml2-utils
+ - mkdir src && mv `ls -1 . | grep -v src` src
+
+build :
+  script:
+    - ls -la && catkin_make
+    - xmllint -noout `find . -name "*.launch"`
