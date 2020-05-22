@@ -25,11 +25,17 @@
     <param name="pixel_format" value="BayerRG8" />
 
     <!-- Exposure params  -->
-    <param name="exposure" value="10000" />
-    <param name="gain" value="20" />
-    <param name="exposure_auto" value="Off" />
-    <param name="gain_auto" value="Off" />
-    <param name="whitebalance_auto" value="Off" />
+    <param name="exposure" value="37053" />
+    <param name="gain" value="0" />
+    <param name="exposure_auto" value="Continuous" />
+    <param name="gain_auto" value="Continuous" />
+
+    <!-- Whitebalance params -->
+    <param name="whitebalance_auto" value="Continuous" />
+    <!--<param name="balance_ratio_selector" value="Red" />
+    <param name="balance_ratio_abs" value="3.00" />   
+    <param name="balance_ratio_selector" value="Blue" />
+    <param name="balance_ratio_abs" value="1.00" />-->
 
     <!-- Image params -->
     <param name="binning_x" value="1" />
