@@ -15,6 +15,7 @@
     <arg name="frame_id" value="lidar" />
     <arg name="device_ip" value="192.168.1.201" />
     <arg name="min_range" value="$(arg lidar_min_dist)" />
+    <arg name="rpm" value="1200" />
   </include>
 
   <!-- CAMERAS -->
