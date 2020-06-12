@@ -12,14 +12,14 @@
   <joint name="lidar" type="fixed" >
     <parent link="base_link" />
     <child link="lidar" />
-    <origin xyz="1.02 0 1.78734" rpy="0 0 -0.021" />
+    <origin xyz="1.02 0 1.78734" rpy="0 0 0.017" />
   </joint>
 
   <!-- Lidar Front -->
   <joint name="lidar_front" type="fixed" >
     <parent link="base_link" />
     <child link="lidar_front" />
-    <origin xyz="1.98 0 1.3753" rpy="0 0.15 -0.021" />
+    <origin xyz="1.97 0 1.3753" rpy="-0.011 0.204 -0.037" />
   </joint>
 
   <!-- Front Center Radar -->
