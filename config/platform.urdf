@@ -2,6 +2,7 @@
   <!-- Frames -->
   <link name="base_link" />
   <link name="lidar" />
+  <link name="lidar_front" />
   <link name="radar_fc" />
   <link name="imu" />
 
@@ -12,6 +13,13 @@
     <parent link="base_link" />
     <child link="lidar" />
     <origin xyz="1.02 0 1.78734" rpy="0 0 -0.021" />
+  </joint>
+
+  <!-- Lidar Front -->
+  <joint name="lidar_front" type="fixed" >
+    <parent link="base_link" />
+    <child link="lidar_front" />
+    <origin xyz="1.98 0 1.3753" rpy="0 0.15 -0.021" />
   </joint>
 
   <!-- Front Center Radar -->

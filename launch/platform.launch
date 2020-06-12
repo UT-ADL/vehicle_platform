@@ -1,7 +1,9 @@
 <launch>
   <!-- Args to enable each sensor -->
-  <arg name="use_lidar" default="false" />
+  <arg name="use_lidar" default="true" />
   <arg name="lidar_min_dist" default="0.4" />
+  <arg name="use_lidar_front" default="true" />
+  <arg name="lidar_front_min_dist" default="0.4" />
   <arg name="use_camera_fl" default="false" />
   <arg name="use_camera_fr" default="false" />
   <arg name="use_radar_fc" default="false" />
@@ -11,12 +13,33 @@
   <arg name="use_tf" default="false" />
 
   <!-- LIDAR -->
-  <include if="$(arg use_lidar)" file="$(find velodyne_pointcloud)/launch/VLP-32C_points.launch">
-    <arg name="frame_id" value="lidar" />
-    <arg name="device_ip" value="192.168.1.201" />
-    <arg name="min_range" value="$(arg lidar_min_dist)" />
-    <arg name="rpm" value="1200" />
-  </include>
+  <group if="$(arg use_lidar)">
+    <remap from="/velodyne_points" to="/points_raw_center" />
+    <remap from="/velodyne_packets" to="/velodyne_packets_center" />
+    <remap from="/scan" to="/scan_center" />
+    <remap from="/diagnostics" to="/diagnostics_center" />
+
+    <include file="$(find velodyne_pointcloud)/launch/VLP-32C_points.launch">
+      <arg name="frame_id" value="lidar" />
+      <arg name="device_ip" value="192.168.1.201" />
+      <arg name="min_range" value="$(arg lidar_min_dist)" />
+    </include>
+  </group>
+
+  <!-- LIDAR Front -->
+  <group if="$(arg use_lidar_front)">
+    <remap from="/velodyne_points" to="/points_raw_front" />
+    <remap from="/velodyne_packets" to="/velodyne_packets_front" />
+    <remap from="/scan" to="/scan_front" />
+    <remap from="/diagnostics" to="/diagnostic_front" />
+
+    <include if="$(arg use_lidar_front)" file="$(find velodyne_pointcloud)/launch/VLP16_points.launch">
+      <arg name="frame_id" value="lidar_front" />
+      <arg name="device_ip" value="192.168.2.12" />
+      <arg name="min_range" value="$(arg lidar_front_min_dist)" />
+      <arg name="port" value="2369" />
+    </include>
+  </group>
 
   <!-- CAMERAS -->
   <!-- Front Left Camera -->
