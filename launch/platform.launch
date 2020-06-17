@@ -31,7 +31,7 @@
     <remap from="/velodyne_points" to="/points_raw_front" />
     <remap from="/velodyne_packets" to="/velodyne_packets_front" />
     <remap from="/scan" to="/scan_front" />
-    <remap from="/diagnostics" to="/diagnostic_front" />
+    <remap from="/diagnostics" to="/diagnostics_front" />
 
     <include if="$(arg use_lidar_front)" file="$(find velodyne_pointcloud)/launch/VLP16_points.launch">
       <arg name="frame_id" value="lidar_front" />
