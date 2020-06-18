@@ -11,6 +11,7 @@
   <arg name="use_dbw" default="false" />
   <arg name="use_ssc" default="false" />
   <arg name="use_tf" default="false" />
+  <arg name="use_diagnostics" default="true" />
 
   <!-- LIDAR -->
   <group if="$(arg use_lidar)">
@@ -91,4 +92,7 @@
     <remap from="robot_description" to="vehicle_platform_frames/robot_description" />
     <param name="robot_description" textfile="$(find vehicle_platform)/config/platform.urdf" />
   </node>
+
+  <!-- DIAGNOSTICS -->
+  <include if="$(arg use_diagnostics)" file="$(find vehicle_platform)/launch/diagnostics.launch" />
 </launch>
