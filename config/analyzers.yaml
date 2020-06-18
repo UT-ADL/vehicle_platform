@@ -1,10 +1,3 @@
-#analyzers:
-#  lidar_front:
-#    type: diagnostic_aggregator/GenericAnalyzer
-#    path: Lidars
-#    find_and_remove_prefix: 'lidar_front_nodelet_manager'
-#    num_items: 1
-
 analyzers:
   lidars:
     type: diagnostic_aggregator/AnalyzerGroup
