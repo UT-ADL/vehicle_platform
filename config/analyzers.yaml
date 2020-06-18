@@ -1,0 +1,44 @@
+#analyzers:
+#  lidar_front:
+#    type: diagnostic_aggregator/GenericAnalyzer
+#    path: Lidars
+#    find_and_remove_prefix: 'lidar_front_nodelet_manager'
+#    num_items: 1
+
+analyzers:
+  lidars:
+    type: diagnostic_aggregator/AnalyzerGroup
+    path: Lidars
+    analyzers:
+      lidar_front:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: lidar_front
+        find_and_remove_prefix: 'lidar_front_nodelet_manager: velodyne_packets '
+        num_items: 1
+      lidar_center:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: lidar_center
+        find_and_remove_prefix: 'lidar_nodelet_manager: velodyne_packets '
+        num_items: 1
+  GPS:
+    type: diagnostic_aggregator/AnalyzerGroup
+    analyzers:
+      novatel:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: GPS
+        find_and_remove_prefix: 'gps/novatel:'
+        num_items: 6
+  Cameras:
+    type: diagnostic_aggregator/AnalyzerGroup
+    path: Cameras
+    analyzers:
+      camera_fl:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: Front Left
+        find_and_remove_prefix: 'camera_fl: /camera_fl'
+        num_items: 1
+      camera_fr:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: Front Right
+        find_and_remove_prefix: 'camera_fr: /camera_fr'
+        num_items: 1
