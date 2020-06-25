@@ -16,11 +16,40 @@ analyzers:
   GPS:
     type: diagnostic_aggregator/AnalyzerGroup
     analyzers:
-      novatel:
+      novatel_fix_discard:
+        type: diagnostic_aggregator/DiscardAnalyzer
+        path: GPS
+        startswith: 'gps/novatel: GPS Fix'
+        num_items: 1
+#      novatel_sync_discard:
+#        type: diagnostic_aggregator/DiscardAnalyzer
+#        path: GPS
+#        startswith: 'gps/novatel: Sync'
+#        num_items: 1
+      novatel_rate:
         type: diagnostic_aggregator/GenericAnalyzer
         path: GPS
-        find_and_remove_prefix: 'gps/novatel:'
-        num_items: 6
+        startswith: 'gps/novatel: Rate'
+        remove_prefix : 'gps/novatel:'
+        num_items: 1
+      novatel_hardware:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: GPS
+        startswith: 'gps/novatel: Hardware'
+        remove_prefix : 'gps/novatel:'
+        num_items: 1
+      novatel_connection:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: GPS
+        startswith: 'gps/novatel: Connection'
+        remove_prefix : 'gps/novatel:'
+        num_items: 1
+      novatel_data:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: GPS
+        startswith: 'gps/novatel: Data'
+        remove_prefix : 'gps/novatel:'
+        num_items: 1
   Cameras:
     type: diagnostic_aggregator/AnalyzerGroup
     path: Cameras

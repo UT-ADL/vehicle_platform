@@ -18,7 +18,6 @@
     <remap from="/velodyne_points" to="/points_raw_center" />
     <remap from="/velodyne_packets" to="/velodyne_packets_center" />
     <remap from="/scan" to="/scan_center" />
-    <remap from="/diagnostics" to="/diagnostics_center" />
 
     <include file="$(find velodyne_pointcloud)/launch/VLP-32C_points.launch">
       <arg name="frame_id" value="lidar" />
@@ -32,7 +31,6 @@
     <remap from="/velodyne_points" to="/points_raw_front" />
     <remap from="/velodyne_packets" to="/velodyne_packets_front" />
     <remap from="/scan" to="/scan_front" />
-    <remap from="/diagnostics" to="/diagnostics_front" />
 
     <include if="$(arg use_lidar_front)" file="$(find velodyne_pointcloud)/launch/VLP16_points.launch">
       <arg name="frame_id" value="lidar_front" />

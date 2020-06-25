@@ -31,6 +31,7 @@
       publish_nmea_messages: true
       publish_novatel_heading2: true
       publish_novatel_dual_antenna_heading: true
+      publish_sync_diagnostic false
     </rosparam>
   </node>
 </launch>
