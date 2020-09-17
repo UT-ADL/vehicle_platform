@@ -59,13 +59,16 @@
 
   <!-- RADARS -->
   <!-- Front Center ESR  -->
-  <include if="$(arg use_radar_fc)" file="$(find delphi_esr)/launch/delphi_esr.launch" ns="radar_fc">
-    <arg name="esr_frame_id" value="radar_fc" />
-    <arg name="viz_mature_tracks_only" value="true" />
-    <arg name="use_kvaser" value="true" />
-    <arg name="kvaser_hardware_id" value="10761" />
-    <arg name="kvaser_circuit_id" value="1" />
-  </include>
+  <group if="$(arg use_radar_fc)">
+    <include file="$(find delphi_esr)/launch/delphi_esr.launch" ns="radar_fc">
+      <arg name="esr_frame_id" value="radar_fc" />
+      <arg name="viz_mature_tracks_only" value="true" />
+      <arg name="use_kvaser" value="true" />
+      <arg name="kvaser_hardware_id" value="10761" />
+      <arg name="kvaser_circuit_id" value="1" />
+    </include>
+    <node pkg="vehicle_platform" name="radar_topic_merger" type="radar_topic_merger" />
+  </group>
 
   <!-- GPS -->
   <include if="$(arg use_gps)" file="$(find vehicle_platform)/launch/novatel_gps_driver.launch">
