@@ -1,7 +1,10 @@
 image: ros:melodic-ros-base
 
 before_script:
-  - apt-get update && apt-get install libxml2-utils && apt-get install ros-melodic-delphi-esr
+  - apt-get -qq update
+  - apt-get -qq install apt-transport-https
+  - sh -c 'echo "deb [trusted=yes] https://s3.amazonaws.com/autonomoustuff-repo/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/autonomoustuff-public.list'
+  - apt-get update && apt-get -qq install libxml2-utils && apt-get -qq install ros-melodic-delphi-esr
   - mkdir src && mv `ls -1 . | grep -v src` src
 
 build :
