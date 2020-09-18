@@ -1,8 +1,8 @@
 image: ros:melodic-ros-base
 
 before_script:
- - apt-get update && apt-get install libxml2-utils
- - mkdir src && mv `ls -1 . | grep -v src` src
+  - apt-get update && apt-get install libxml2-utils && apt-get install ros-melodic-delphi-esr
+  - mkdir src && mv `ls -1 . | grep -v src` src
 
 build :
   script:
