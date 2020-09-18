@@ -18,18 +18,25 @@ class radar_topic_merger {
     explicit radar_topic_merger(ros::NodeHandle* nodehandle);
 
     void esrtrack_callback(const delphi_esr_msgs::EsrTrackConstPtr &esrtrack);
-    void trackmotionpower_callback(const delphi_esr_msgs::EsrTrackMotionPower &trackmotionpower);
+    void trackpower_callback(const delphi_esr_msgs::EsrTrackMotionPower &trackPower);
 
     private:
     ros::NodeHandle nh;
+
     vehicle_platform::EsrTrackArray esrTrackArray;
-    int endOfScanSeq = 0;
+    vehicle_platform::EsrTrackMotionPowerArray trackPowerArray;
+
+    unsigned int endOfScanTrackSeq = 0;
+    unsigned int endOfScanPowerSeq = 0;
 
     ros::Subscriber esrTrackSub;
+    ros::Subscriber trackPowerSub;
 
     ros::Publisher esrTrackArrayPub;
+    ros::Publisher trackPowerPub;
 
     string esrTrackTopic;
+    string trackPowerTopic;
 };
 
 

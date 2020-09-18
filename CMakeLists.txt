@@ -11,6 +11,8 @@ find_package(
 add_message_files(
         FILES
         EsrTrackArray.msg
+        EsrTrackMotionPowerId.msg
+        EsrTrackMotionPowerArray.msg
 )
 
 generate_messages(
