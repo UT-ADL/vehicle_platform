@@ -1,0 +1,56 @@
+GPS Fix:
+  Solution Status:
+    exactly: "SOL_COMPUTED"
+    type: string
+    message: "Solution not computed"
+    sound: "gps_signal_lost.wav"
+  Position Type:
+    in: ["INS_RTKFIXED", "NARROW_INT"]
+    type: string
+    message: "Solution without RTK"
+    sound: "gps_no_rtk.wav"
+  Solution Age:
+    below: 5.0
+    type: float
+    message: "Solution age high"
+    sound: "gps_signal_lost.wav"
+  Satellites Used:
+    above: 5
+    type: int
+    message: "Low sattelite count"
+    sound: "low_sat_count.wav"
+  Error Flag:
+    exactly: False
+    type: bool
+    message: "Error"
+    sound: "error.wav"
+  Temperature Flag:
+    exactly: False
+    type: bool
+    message: "High temperature"
+    sound: "error.wav"
+  Voltage Flag:
+    exactly: False
+    type: bool
+    message: "Voltage problem"
+    sound: "error.wav"
+  Antenna Not Powered:
+    exactly: False
+    type: bool
+    message: "Antenna Not Powered"
+    sound: "error.wav"
+  Antenna Open:
+    exactly: False
+    type: bool
+    message: "Antenna Open"
+    sound: "error.wav"
+  Antenna Shorted:
+    exactly: False
+    type: bool
+    message: "Antenna Shorted"
+    sound: "error.wav"
+  CPU Overloaded:
+    exactly: False
+    type: bool
+    message: "CPU Overloaded"
+    sound: "cpu_overloaded.wav"

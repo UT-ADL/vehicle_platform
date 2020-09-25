@@ -8,48 +8,51 @@ analyzers:
         path: lidar_front
         find_and_remove_prefix: 'lidar_front_nodelet_manager: velodyne_packets '
         num_items: 1
+        timeout: 1
       lidar_center:
         type: diagnostic_aggregator/GenericAnalyzer
         path: lidar_center
         find_and_remove_prefix: 'lidar_nodelet_manager: velodyne_packets '
         num_items: 1
+        timeout: 1
   GPS:
     type: diagnostic_aggregator/AnalyzerGroup
     analyzers:
       novatel_fix_discard:
-        type: diagnostic_aggregator/DiscardAnalyzer
+        type: diagnostic_aggregator/GenericAnalyzer
         path: GPS
         startswith: 'gps/novatel: GPS Fix'
+        remove_prefix : 'gps/novatel:'
         num_items: 1
-#      novatel_sync_discard:
-#        type: diagnostic_aggregator/DiscardAnalyzer
-#        path: GPS
-#        startswith: 'gps/novatel: Sync'
-#        num_items: 1
+        timeout: 1
       novatel_rate:
         type: diagnostic_aggregator/GenericAnalyzer
         path: GPS
         startswith: 'gps/novatel: Rate'
         remove_prefix : 'gps/novatel:'
         num_items: 1
+        timeout: 1
       novatel_hardware:
         type: diagnostic_aggregator/GenericAnalyzer
         path: GPS
         startswith: 'gps/novatel: Hardware'
         remove_prefix : 'gps/novatel:'
         num_items: 1
+        timeout: 1
       novatel_connection:
         type: diagnostic_aggregator/GenericAnalyzer
         path: GPS
         startswith: 'gps/novatel: Connection'
         remove_prefix : 'gps/novatel:'
         num_items: 1
+        timeout: 1
       novatel_data:
         type: diagnostic_aggregator/GenericAnalyzer
         path: GPS
         startswith: 'gps/novatel: Data'
         remove_prefix : 'gps/novatel:'
         num_items: 1
+        timeout: 1
   Cameras:
     type: diagnostic_aggregator/AnalyzerGroup
     path: Cameras
@@ -59,8 +62,10 @@ analyzers:
         path: Front Left
         find_and_remove_prefix: 'camera_fl: /camera_fl'
         num_items: 1
+        timeout: 5
       camera_fr:
         type: diagnostic_aggregator/GenericAnalyzer
         path: Front Right
         find_and_remove_prefix: 'camera_fr: /camera_fr'
         num_items: 1
+        timeout: 5

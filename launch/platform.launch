@@ -71,11 +71,15 @@
   </group>
 
   <!-- GPS -->
-  <include if="$(arg use_gps)" file="$(find vehicle_platform)/launch/novatel_gps_driver.launch">
-    <arg name="ip" value="192.168.100.150" />
-    <arg name="port" value="2000" />
-    <arg name="imu_rate" value="100" />
-  </include>
+  <group>
+    <node if="$(arg use_diagnostics)" pkg="vehicle_platform" type="gps_diagnostics_parser.py" name="gps_diagnostics_parser" />
+    <remap from="/diagnostics" to="/gps/diagnostics" />
+    <include if="$(arg use_gps)" file="$(find vehicle_platform)/launch/novatel_gps_driver.launch">
+      <arg name="ip" value="192.168.100.150" />
+      <arg name="port" value="2000" />
+      <arg name="imu_rate" value="100" />
+    </include>
+  </group>
 
   <!-- DRIVE BY WIRE -->
   <include if="$(arg use_dbw)" file="$(find pacmod3)/launch/pacmod3.launch" ns="pacmod">
@@ -95,5 +99,11 @@
   </node>
 
   <!-- DIAGNOSTICS -->
-  <include if="$(arg use_diagnostics)" file="$(find vehicle_platform)/launch/diagnostics.launch" />
+  <include if="$(arg use_diagnostics)" file="$(find vehicle_platform)/launch/diagnostics.launch" >
+    <arg name="use_lidar" value="$(arg use_lidar)" />
+    <arg name="use_lidar_front" value="$(arg use_lidar_front)" />
+    <arg name="use_camera_fl" value="$(arg use_camera_fl)" />
+    <arg name="use_camera_fr" value="$(arg use_camera_fr)" />
+    <arg name="use_gps" value="$(arg use_gps)" />
+  </include>
 </launch>
