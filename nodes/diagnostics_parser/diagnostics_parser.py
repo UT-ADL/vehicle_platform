@@ -10,8 +10,8 @@ from diagnostic_msgs.msg import DiagnosticArray, DiagnosticStatus
 from threading import Thread
 
 
-class gps_diagnostics_parser:
-    SOUND_PATH = rospkg.RosPack().get_path('vehicle_platform') + "/nodes/gps_diagnostics_parser/sounds/"
+class diagnostics_parser:
+    SOUND_PATH = rospkg.RosPack().get_path('vehicle_platform') + "/nodes/diagnostics_parser/sounds/"
     first_message = True
     config = None
     diagnostics_pub = None
@@ -22,7 +22,7 @@ class gps_diagnostics_parser:
     error_count = {}
 
     def __init__(self):
-        self.config = yaml.safe_load(open(rospkg.RosPack().get_path('vehicle_platform') + "/config/gps_diagnostics_parser.yaml", 'r'))
+        self.config = yaml.safe_load(open(rospkg.RosPack().get_path('vehicle_platform') + "/config/diagnostics_parser.yaml", 'r'))
         rospy.loginfo(self.__class__.__name__ + " - node started")
         rospy.Subscriber('/gps/diagnostics', DiagnosticArray, self.process_diagnostics_status, queue_size=1)
         self.diagnostics_pub = rospy.Publisher('/diagnostics', DiagnosticArray,  queue_size=5)
@@ -31,19 +31,18 @@ class gps_diagnostics_parser:
         """
         :type diagnostic_array: DiagnosticArray
         """
-        if "gps/novatel" in diagnostic_array.status[0].name:
-            diagnostic_array.status = self.process_gps_status_array(diagnostic_array.status)
+        diagnostic_array.status = self.process_status_array(diagnostic_array.status)
 
         diagnostic_array.header.stamp = rospy.Time.now()
         self.diagnostics_pub.publish(diagnostic_array)
 
-    def process_gps_status_array(self, gps_status_array):
+    def process_status_array(self, gps_status_array):
         for i in range(len(gps_status_array)):
-            if "GPS Fix" in gps_status_array[i].name:
-                gps_status_array[i] = self.process_gps_fix_status(gps_status_array[i], self.config['GPS Fix'])
+            if gps_status_array[i].name in self.config.keys():
+                gps_status_array[i] = self.process_status(gps_status_array[i], self.config[gps_status_array[i].name])
         return gps_status_array
 
-    def process_gps_fix_status(self, fix_status, config):
+    def process_status(self, fix_status, config):
         """
         :type fix_status: DiagnosticStatus
         :return:
@@ -169,5 +168,5 @@ class gps_diagnostics_parser:
 
 if __name__ == '__main__':
     rospy.init_node('gps_diagnostics_parser', anonymous=True, log_level=rospy.INFO)
-    node = gps_diagnostics_parser()
+    node = diagnostics_parser()
     node.run()

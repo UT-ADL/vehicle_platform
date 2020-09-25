@@ -57,12 +57,15 @@ class heartbeat_notif:
     def process_error(self, status):
         # GPS Errors are managed by a specific node
         print("error_Detected")
+        print(status.name)
         if self.use_lidar_front and status.name in ["/Lidars/lidar_front"] and not self.playing:
             self.play_audio_async("lidar_front_error.wav")
             rospy.logerr(self.__class__.__name__ + " - FRONT LIDAR ERROR")
         elif self.use_lidar_center and status.name in ["/Lidars/lidar_center"] and not self.playing:
             self.play_audio_async("lidar_center_error.wav")
-            rospy.logerr(self.__class__.__name__ + " - CENTER LIDAR ERROR")
+        elif self.use_lidar_center and status.name in ["/Lidars"] and not self.playing:
+            self.play_audio_async("lidar_error.wav")
+            rospy.logerr(self.__class__.__name__ + " - LIDAR ERROR")
         elif self.use_cameras and status.name in ["/Cameras"] and not self.playing:
             self.play_audio_async("cameras_error.wav")
             rospy.logerr(self.__class__.__name__ + " - CAMERA ERROR")

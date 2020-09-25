@@ -72,7 +72,7 @@
 
   <!-- GPS -->
   <group>
-    <node if="$(arg use_diagnostics)" pkg="vehicle_platform" type="gps_diagnostics_parser.py" name="gps_diagnostics_parser" />
+    <node if="$(arg use_diagnostics)" pkg="vehicle_platform" type="diagnostics_parser.py" name="diagnostics_parser" />
     <remap from="/diagnostics" to="/gps/diagnostics" />
     <include if="$(arg use_gps)" file="$(find vehicle_platform)/launch/novatel_gps_driver.launch">
       <arg name="ip" value="192.168.100.150" />
