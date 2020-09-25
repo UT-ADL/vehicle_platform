@@ -8,13 +8,13 @@ analyzers:
         path: lidar_front
         find_and_remove_prefix: 'lidar_front_nodelet_manager: velodyne_packets '
         num_items: 1
-        timeout: 1
+        timeout: 2
       lidar_center:
         type: diagnostic_aggregator/GenericAnalyzer
         path: lidar_center
         find_and_remove_prefix: 'lidar_nodelet_manager: velodyne_packets '
         num_items: 1
-        timeout: 1
+        timeout: 2
   GPS:
     type: diagnostic_aggregator/AnalyzerGroup
     analyzers:
@@ -24,35 +24,35 @@ analyzers:
         startswith: 'gps/novatel: GPS Fix'
         remove_prefix : 'gps/novatel:'
         num_items: 1
-        timeout: 1
+        timeout: 2
       novatel_rate:
         type: diagnostic_aggregator/GenericAnalyzer
         path: GPS
         startswith: 'gps/novatel: Rate'
         remove_prefix : 'gps/novatel:'
         num_items: 1
-        timeout: 1
+        timeout: 2
       novatel_hardware:
         type: diagnostic_aggregator/GenericAnalyzer
         path: GPS
         startswith: 'gps/novatel: Hardware'
         remove_prefix : 'gps/novatel:'
         num_items: 1
-        timeout: 1
+        timeout: 2
       novatel_connection:
         type: diagnostic_aggregator/GenericAnalyzer
         path: GPS
         startswith: 'gps/novatel: Connection'
         remove_prefix : 'gps/novatel:'
         num_items: 1
-        timeout: 1
+        timeout: 2
       novatel_data:
         type: diagnostic_aggregator/GenericAnalyzer
         path: GPS
         startswith: 'gps/novatel: Data'
         remove_prefix : 'gps/novatel:'
         num_items: 1
-        timeout: 1
+        timeout: 2
   Cameras:
     type: diagnostic_aggregator/AnalyzerGroup
     path: Cameras
