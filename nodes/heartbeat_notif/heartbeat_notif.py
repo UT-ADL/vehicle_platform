@@ -26,7 +26,7 @@ class heartbeat_notif:
 
     def __init__(self):
         # We make sure all systems are operational before starting.
-        # time.sleep(5)
+        time.sleep(5)
         rospy.loginfo(self.__class__.__name__ + " - node started")
         rospy.Subscriber('/diagnostics_agg', DiagnosticArray, self.process_agg_diagnostics, queue_size=1)
 
