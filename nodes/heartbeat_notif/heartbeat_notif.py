@@ -26,7 +26,7 @@ class heartbeat_notif:
 
     def __init__(self):
         # We make sure all systems are operational before starting.
-        time.sleep(5)
+        # time.sleep(5)
         rospy.loginfo(self.__class__.__name__ + " - node started")
         rospy.Subscriber('/diagnostics_agg', DiagnosticArray, self.process_agg_diagnostics, queue_size=1)
 
@@ -49,22 +49,19 @@ class heartbeat_notif:
         """
         if status.level == 3:
             self.process_stale(status)
-        elif status.level == 2:
+        elif status.level in [1, 2]:
             self.process_error(status)
         elif status.level == 0:
             self.process_ok(status)
 
     def process_error(self, status):
+        print(str(status.level) + " : " + status.name)
         # GPS Errors are managed by a specific node
-        print("error_Detected")
-        print(status.name)
         if self.use_lidar_front and status.name in ["/Lidars/lidar_front"] and not self.playing:
             self.play_audio_async("lidar_front_error.wav")
             rospy.logerr(self.__class__.__name__ + " - FRONT LIDAR ERROR")
         elif self.use_lidar_center and status.name in ["/Lidars/lidar_center"] and not self.playing:
             self.play_audio_async("lidar_center_error.wav")
-        elif self.use_lidar_center and status.name in ["/Lidars"] and not self.playing:
-            self.play_audio_async("lidar_error.wav")
             rospy.logerr(self.__class__.__name__ + " - LIDAR ERROR")
         elif self.use_cameras and status.name in ["/Cameras"] and not self.playing:
             self.play_audio_async("cameras_error.wav")
@@ -73,6 +70,7 @@ class heartbeat_notif:
 
     def process_stale(self, status):
         """
+        Stale is when no diagnostics messages have been received for some time.
         :type status: DiagnosticStatus
         """
         if status.name not in self.staled_counter:
