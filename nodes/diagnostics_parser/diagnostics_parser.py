@@ -57,11 +57,12 @@ class diagnostics_parser:
                 errors_in_last_status += 1
 
         for status in fix_status.values:
+
             if self.playing:
                 break
 
             if status.key not in config:
-                break
+                continue
 
             if self.is_valid(status.value, config[status.key]):
                 self.process_valid_gps_fix_status(status)
@@ -107,6 +108,8 @@ class diagnostics_parser:
             assert isinstance(config['in'], list), "Not a list"
             correct_list = [self.get_correct_type(item, config['type']) for item in config['in']]
             return self.get_correct_type(value, config['type']) in correct_list
+        elif "not_bitwise_and" in config.keys():
+            return not bool(self.get_correct_type(value, config['type']) & self.get_correct_type(config['not_bitwise_and'], config['type']))
 
     def get_correct_type(self, value, type):
         if type == "string":

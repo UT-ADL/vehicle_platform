@@ -19,6 +19,12 @@
     type: int
     message: "Low sattelite count"
     sound: "low_sat_count.wav"
+  Status Code:
+    not_bitwise_and: 65536
+    message: "Critical error"
+    kill_heartbeat: True
+    type: int
+    sound: "gps_critical_error.wav"
   Error Flag:
     exactly: False
     type: bool
