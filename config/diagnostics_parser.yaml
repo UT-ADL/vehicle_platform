@@ -25,6 +25,7 @@
     kill_heartbeat: True
     type: int
     sound: "gps_critical_error.wav"
+    critical: True
   Error Flag:
     exactly: False
     type: bool

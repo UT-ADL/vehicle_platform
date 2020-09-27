@@ -45,6 +45,7 @@ class diagnostics_parser:
     def process_status(self, fix_status, config):
         """
         :type fix_status: DiagnosticStatus
+        :type config: dict
         :return:
         """
         valid = True
@@ -69,7 +70,7 @@ class diagnostics_parser:
             else:
                 valid, message = self.process_invalid_gps_fix_status(status, config)
 
-        if (errors_in_last_status > 0 and len(self.error_count.keys()) == 0) or (self.first_message and len(self.error_count.keys()) == 0):
+        if len(self.error_count.keys()) == 0 and (errors_in_last_status > 0 or self.first_message):
             self.play_audio_async("gps_ok.wav")
             self.first_message = False
 
@@ -88,7 +89,11 @@ class diagnostics_parser:
             self.error_count[status.key] = 1
 
         # Playing sound from config
-        if 'sound' in config[status.key] and self.error_count[status.key] == self.sound_count_trigger and not self.playing:
+        if 'sound' in config[status.key] and not self.playing \
+                and (
+                self.error_count[status.key] == self.sound_count_trigger
+                or "critical" in config[status.key] and self.get_correct_type(config[status.key]['critical'], 'bool')
+        ):
             self.play_audio_async(config[status.key]['sound'])
 
         return valid, message
@@ -110,6 +115,8 @@ class diagnostics_parser:
             return self.get_correct_type(value, config['type']) in correct_list
         elif "not_bitwise_and" in config.keys():
             return not bool(self.get_correct_type(value, config['type']) & self.get_correct_type(config['not_bitwise_and'], config['type']))
+        else:
+            raise Exception("Must contain a condition")
 
     def get_correct_type(self, value, type):
         if type == "string":
