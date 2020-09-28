@@ -12,7 +12,6 @@ from threading import Thread
 
 class diagnostics_parser:
     SOUND_PATH = rospkg.RosPack().get_path('vehicle_platform') + "/nodes/diagnostics_parser/sounds/"
-    first_message = True
     config = None
     diagnostics_pub = None
     pyaudio = pyaudio.PyAudio()
@@ -20,11 +19,12 @@ class diagnostics_parser:
     sound_count_trigger = 2
     current_errors = []
     error_count = {}
+    first_message = {}
 
     def __init__(self):
         self.config = yaml.safe_load(open(rospkg.RosPack().get_path('vehicle_platform') + "/config/diagnostics_parser.yaml", 'r'))
         rospy.loginfo(self.__class__.__name__ + " - node started")
-        rospy.Subscriber('/gps/diagnostics', DiagnosticArray, self.process_diagnostics_status, queue_size=1)
+        rospy.Subscriber('/unprocessed_diagnostics', DiagnosticArray, self.process_diagnostics_status, queue_size=1)
         self.diagnostics_pub = rospy.Publisher('/diagnostics', DiagnosticArray,  queue_size=5)
 
     def process_diagnostics_status(self, diagnostic_array):
@@ -36,16 +36,30 @@ class diagnostics_parser:
         diagnostic_array.header.stamp = rospy.Time.now()
         self.diagnostics_pub.publish(diagnostic_array)
 
-    def process_status_array(self, gps_status_array):
-        for i in range(len(gps_status_array)):
-            if gps_status_array[i].name in self.config.keys():
-                gps_status_array[i] = self.process_status(gps_status_array[i], self.config[gps_status_array[i].name])
-        return gps_status_array
+    def process_status_array(self, status_array):
+        for i in range(len(status_array)):
+            if status_array[i].name in self.config.keys():
 
-    def process_status(self, fix_status, config):
+                if status_array[i].name not in self.error_count:
+                    self.error_count[status_array[i].name] = {}
+
+                if status_array[i].name not in self.first_message:
+                    self.first_message[status_array[i].name] = True
+
+                status_array[i] = self.process_status(
+                    status_array[i],
+                    self.config[status_array[i].name]['tests'],
+                    status_array[i].name,
+                    self.config[status_array[i].name]['nominal_sound']
+                )
+        return status_array
+
+    def process_status(self, status, config, device_name, nominal_sound):
         """
-        :type fix_status: DiagnosticStatus
+        :type status: DiagnosticStatus
         :type config: dict
+        :type device_name: str
+        :type nominal_sound: str
         :return:
         """
         valid = True
@@ -53,54 +67,58 @@ class diagnostics_parser:
 
         # We only count errors that trigger the notif
         errors_in_last_status = 0
-        for key in self.error_count.keys():
-            if self.error_count[key] >= self.sound_count_trigger:
+        for key in self.error_count[device_name].keys():
+            if self.error_count[device_name][key] >= self.sound_count_trigger:
                 errors_in_last_status += 1
 
-        for status in fix_status.values:
+        for status_value in status.values:
 
             if self.playing:
                 break
 
-            if status.key not in config:
+            if status_value.key not in config:
                 continue
 
-            if self.is_valid(status.value, config[status.key]):
-                self.process_valid_gps_fix_status(status)
+            if self.is_valid(status_value.value, config[status_value.key]):
+                self.process_valid_gps_fix_status(status_value, device_name)
             else:
-                valid, message = self.process_invalid_gps_fix_status(status, config)
+                valid, message = self.process_invalid_gps_fix_status(status_value, config, device_name)
 
-        if len(self.error_count.keys()) == 0 and (errors_in_last_status > 0 or self.first_message):
-            self.play_audio_async("gps_ok.wav")
-            self.first_message = False
+        print(self.error_count)
 
-        fix_status.level = 0 if valid else 1
-        fix_status.message = message
-        return fix_status
+        if len(self.error_count[device_name].keys()) == 0 and (errors_in_last_status > 0 or self.first_message[device_name]) and not self.playing:
+            self.play_audio_async(nominal_sound)
+            self.first_message[device_name] = False
 
-    def process_invalid_gps_fix_status(self, status, config):
+        status.level = 0 if valid else 1
+        status.message = message
+        return status
+
+    def process_invalid_gps_fix_status(self, status, config, device_name):
         valid = False
         message = config[status.key]['message']
         rospy.logwarn(self.__class__.__name__ + " - " + config[status.key]['message'])
 
-        if status.key in self.error_count.keys():
-            self.error_count[status.key] += 1
+        print(self.error_count[device_name])
+
+        if status.key in self.error_count[device_name].keys():
+            self.error_count[device_name][status.key] += 1
         else:
-            self.error_count[status.key] = 1
+            self.error_count[device_name][status.key] = 1
 
         # Playing sound from config
         if 'sound' in config[status.key] and not self.playing \
                 and (
-                self.error_count[status.key] == self.sound_count_trigger
+                self.error_count[device_name][status.key] == self.sound_count_trigger
                 or "critical" in config[status.key] and self.get_correct_type(config[status.key]['critical'], 'bool')
         ):
             self.play_audio_async(config[status.key]['sound'])
 
         return valid, message
 
-    def process_valid_gps_fix_status(self, status):
-        if status.key in self.error_count.keys():
-            del(self.error_count[status.key])
+    def process_valid_gps_fix_status(self, status, device_name):
+        if status.key in self.error_count[device_name].keys():
+            del(self.error_count[device_name][status.key])
 
     def is_valid(self, value, config):
         if "exactly" in config.keys():
