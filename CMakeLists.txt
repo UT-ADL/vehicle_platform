@@ -34,6 +34,7 @@ include_directories(
 
 add_executable(radar_topic_merger nodes/radar_topic_merger/radar_topic_merger.cpp)
 target_link_libraries(radar_topic_merger ${catkin_LIBRARIES})
+add_dependencies(radar_topic_merger vehicle_platform_generate_messages_cpp)
 add_dependencies(radar_topic_merger ${catkin_EXPORTED_TARGETS})
 
 install(
