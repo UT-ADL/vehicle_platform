@@ -7,8 +7,10 @@
   <arg name="polling_period" default="0.05" doc="The period between gps data publishes in seconds" />
   <arg name="frame_id" default="gps" doc="The frame of the gps data" />
   <arg name="imu_frame_id" default="imu" doc="The frame of the imu data" />
+  <arg name="driver_name" default="novatel" doc="swri or novatel"/>
 
-  <node name="novatel"
+  <node if="$(eval arg('driver_name') == 'swri')"
+        name="novatel"
         pkg="nodelet" type="nodelet"
         args="standalone novatel_gps_driver/novatel_gps_nodelet"
         ns="$(arg namespace)"
@@ -34,4 +36,10 @@
       publish_sync_diagnostic: false
     </rosparam>
   </node>
+
+  <include if="$(eval arg('driver_name') == 'novatel')"
+           file="$(find novatel_oem7_driver)/launch/oem7_net.launch">
+    <arg name="oem7_ip_addr" value="$(arg ip)" />
+    <arg name="oem7_port" value="$(arg port)" />
+  </include>
 </launch>

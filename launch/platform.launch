@@ -12,6 +12,7 @@
   <arg name="use_ssc" default="false" />
   <arg name="use_tf" default="false" />
   <arg name="use_diagnostics" default="true" />
+  <arg name="gps_driver_name" default="novatel" />
 
   <!-- LIDAR -->
   <group if="$(arg use_lidar)">
@@ -78,6 +79,7 @@
       <arg name="ip" value="192.168.100.150" />
       <arg name="port" value="2000" />
       <arg name="imu_rate" value="100" />
+      <arg name="driver_name" value="$(arg gps_driver_name)" />
     </include>
   </group>
 
