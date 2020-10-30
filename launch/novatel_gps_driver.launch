@@ -37,9 +37,11 @@
     </rosparam>
   </node>
 
-  <include if="$(eval arg('driver_name') == 'novatel')"
-           file="$(find novatel_oem7_driver)/launch/oem7_net.launch">
-    <arg name="oem7_ip_addr" value="$(arg ip)" />
-    <arg name="oem7_port" value="$(arg port)" />
-  </include>
+  <group if="$(eval arg('driver_name') == 'novatel')">
+    <include file="$(find novatel_oem7_driver)/launch/oem7_net.launch">
+      <arg name="oem7_ip_addr" value="$(arg ip)" />
+      <arg name="oem7_port" value="$(arg port)" />
+    </include>
+    <node pkg="vehicle_platform" type="novatel_oem7_driver_diag.py" name="driver_diag" ns="/novatel/oem7" />
+  </group>
 </launch>
