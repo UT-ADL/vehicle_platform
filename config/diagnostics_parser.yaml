@@ -1,68 +1,46 @@
-#"gps/novatel: GPS Fix":
-#  nominal_sound: "gps_ok.wav"
-#  tests:
-#    Solution Status:
-#      exactly: "SOL_COMPUTED"
-#      type: string
-#      message: "Solution not computed"
-#      sound: "gps_signal_lost.wav"
-#    Position Type:
-#      in: ["INS_RTKFIXED", "NARROW_INT"]
-#      type: string
-#      message: "Solution without RTK"
-#      sound: "gps_no_rtk.wav"
-#    Solution Age:
-#      below: 5.0
-#      type: float
-#      message: "Solution age high"
-#      sound: "gps_signal_lost.wav"
-#    Satellites Used:
-#      above: 5
-#      type: int
-#      message: "Low sattelite count"
-#      sound: "low_sat_count.wav"
-#    Status Code:
-#      not_bitwise_and: 65536
-#      message: "Critical error"
-#      kill_heartbeat: True
-#      type: int
-#      sound: "gps_critical_error.wav"
-#      critical: True
-#    Error Flag:
-#      exactly: False
-#      type: bool
-#      message: "Error"
-#      sound: "error.wav"
-#    Temperature Flag:
-#      exactly: False
-#      type: bool
-#      message: "High temperature"
-#      sound: "error.wav"
-#    Voltage Flag:
-#      exactly: False
-#      type: bool
-#      message: "Voltage problem"
-#      sound: "error.wav"
-#    Antenna Not Powered:
-#      exactly: False
-#      type: bool
-#      message: "Antenna Not Powered"
-#      sound: "error.wav"
-#    Antenna Open:
-#      exactly: False
-#      type: bool
-#      message: "Antenna Open"
-#      sound: "error.wav"
-#    Antenna Shorted:
-#      exactly: False
-#      type: bool
-#      message: "Antenna Shorted"
-#      sound: "error.wav"
-#    CPU Overloaded:
-#      exactly: False
-#      type: bool
-#      message: "CPU Overloaded"
-#      sound: "cpu_overloaded.wav"
+"novatel/oem7/driver_diag: Status":
+  nominal_sound: "gps_ok.wav"
+  tests:
+    RTK diff age:
+      below: 10.0
+      type: float
+      message: "Diff age high"
+      sound: "rtk_old.wav" #todo
+    Solution age:
+      below: 5.0
+      type: float
+      message: "Diff age high"
+      sound: "gps_signal_lost.wav"
+    Solution status:
+      exactly: 0 # See https://github.com/novatel/novatel_oem7_driver/blob/master/src/novatel_oem7_msgs/msg/SolutionStatus.msg
+      type: int
+      message: "Solution not computed"
+      sound: "gps_signal_lost.wav"
+    Position or velocity type:
+      in: [56, 55, 50, 40, 34] # See https://github.com/novatel/novatel_oem7_driver/blob/master/src/novatel_oem7_msgs/msg/PositionOrVelocityType.msg
+      type: int
+      message: "RTK not computed"
+      sound: "gps_no_rtk.wav"
+    Satellites tracked:
+      above: 5
+      type: int
+      message: "Satellites tracked low"
+      sound: "low_sat_count.wav"
+    Satellites used:
+      above: 5
+      type: int
+      message: "Satellites used low"
+      sound: "low_sat_count.wav"
+    Lon stdev (m):
+      below: 0.5
+      type: float
+      message: "Longitude accuracy low"
+      sound: "gps_low_accuracy.wav" #todo
+    Lat stdev (m):
+      below: 0.5
+      type: float
+      message: "Latitude accuracy low"
+      sound: "gps_low_accuracy.wav" #todo
 "ib_tls: Status":
   nominal_sound: "trafficlight_ok.wav"
   tests:

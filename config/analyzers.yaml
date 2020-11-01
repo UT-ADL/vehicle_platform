@@ -15,44 +15,15 @@ analyzers:
         find_and_remove_prefix: 'lidar_nodelet_manager: velodyne_packets '
         num_items: 1
         timeout: 2
-#  GPS:
-#    type: diagnostic_aggregator/AnalyzerGroup
-#    analyzers:
-#      novatel_fix_discard:
-#        type: diagnostic_aggregator/GenericAnalyzer
-#        path: GPS
-#        startswith: 'gps/novatel: GPS Fix'
-#        remove_prefix : 'gps/novatel:'
-#        num_items: 1
-#        timeout: 2
-#      novatel_rate:
-#        type: diagnostic_aggregator/GenericAnalyzer
-#        path: GPS
-#        startswith: 'gps/novatel: Rate'
-#        remove_prefix : 'gps/novatel:'
-#        num_items: 1
-#        timeout: 2
-#      novatel_hardware:
-#        type: diagnostic_aggregator/GenericAnalyzer
-#        path: GPS
-#        startswith: 'gps/novatel: Hardware'
-#        remove_prefix : 'gps/novatel:'
-#        num_items: 1
-#        timeout: 2
-#      novatel_connection:
-#        type: diagnostic_aggregator/GenericAnalyzer
-#        path: GPS
-#        startswith: 'gps/novatel: Connection'
-#        remove_prefix : 'gps/novatel:'
-#        num_items: 1
-#        timeout: 2
-#      novatel_data:
-#        type: diagnostic_aggregator/GenericAnalyzer
-#        path: GPS
-#        startswith: 'gps/novatel: Data'
-#        remove_prefix : 'gps/novatel:'
-#        num_items: 1
-#        timeout: 2
+  GPS:
+    type: diagnostic_aggregator/AnalyzerGroup
+    analyzers:
+      novatel:
+        type: diagnostic_aggregator/GenericAnalyzer
+        path: GPS
+        find_and_remove_prefix: 'novatel/oem7/driver_diag:'
+        num_items: 1
+        timeout: 2
   Cameras:
     type: diagnostic_aggregator/AnalyzerGroup
     path: Cameras

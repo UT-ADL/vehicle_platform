@@ -82,9 +82,9 @@ class diagnostics_parser:
             if self.is_valid(status_value.value, config[status_value.key]):
                 self.process_valid_gps_fix_status(status_value, device_name)
             else:
+                print(status_value)
+                rospy.logwarn("Triggered diag notif : %s %s".format(status_value['key'], str(status_value['value'])))
                 valid, message = self.process_invalid_gps_fix_status(status_value, config, device_name)
-
-        print(self.error_count)
 
         if len(self.error_count[device_name].keys()) == 0 and (errors_in_last_status > 0 or self.first_message[device_name]) and not self.playing:
             self.play_audio_async(nominal_sound)
@@ -98,8 +98,6 @@ class diagnostics_parser:
         valid = False
         message = config[status.key]['message']
         rospy.logwarn(self.__class__.__name__ + " - " + config[status.key]['message'])
-
-        print(self.error_count[device_name])
 
         if status.key in self.error_count[device_name].keys():
             self.error_count[device_name][status.key] += 1

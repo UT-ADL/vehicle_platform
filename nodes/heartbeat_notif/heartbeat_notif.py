@@ -18,6 +18,7 @@ class heartbeat_notif:
     staled_counter = {}
     failure_trigger = None
     above_failure_trigger = 0
+    seen_prefixes = []
 
     use_lidar_center = None
     use_lidar_front = None
@@ -73,43 +74,56 @@ class heartbeat_notif:
         Stale is when no diagnostics messages have been received for some time.
         :type status: DiagnosticStatus
         """
+        # We will get a status for each prefix, we need to filter them to avoid redundancies.
+        if status.name+"/" not in self.seen_prefixes:
+            self.seen_prefixes.append(status.name+"/")
+
+        prefixed = 0
+        for seen in self.seen_prefixes:
+            prefixed = prefixed + 1 if seen.startswith(status.name) else prefixed
+
+        # Filter out redundancies.
+        if prefixed > 1:
+            return
+
+        # We add the staled prefix to the counter if not present and we increment it, if it is.
         if status.name not in self.staled_counter:
             self.staled_counter[status.name] = 1
             return
-
         self.staled_counter[status.name] += 1
+
+        # We count how many statuses are above the trigger.
         if self.staled_counter[status.name] == self.failure_trigger:
             self.above_failure_trigger += 1
 
+        # If it has not been staled for long enough we exit.
         if self.staled_counter[status.name] < self.failure_trigger:
             return
 
-        if self.above_failure_trigger > 1 and not self.playing :
-            is_gps = 0
-            for stalled in self.staled_counter.keys():
-                if stalled.startswith("/GPS"):
-                    is_gps += 1
-            
-            if is_gps != len(self.staled_counter.keys()):
-                self.play_audio_async("multiple_failures.wav")
-                rospy.logerr(self.__class__.__name__ + " - MULTIPLE FAILURES : " + ', '.join(self.staled_counter.keys()))
-                return
-
-        if self.use_gps and status.name in ["/GPS"] and not self.playing:
+        if self.above_failure_trigger > 1 and not self.playing:
+            self.play_audio_async("multiple_failures.wav")
+            rospy.logerr(self.__class__.__name__ + " - MULTIPLE FAILURES : " + ', '.join(self.staled_counter.keys()))
+            return
+        elif self.use_gps and status.name in ["/GPS"] and not self.playing:
             self.play_audio_async("gps_lost.wav")
             rospy.logerr(self.__class__.__name__ + " - GPS FAILURE")
+            return
         elif self.use_lidar_front and status.name in ["/Lidars/lidar_front"] and not self.playing:
             self.play_audio_async("front_lidar_lost.wav")
             rospy.logerr(self.__class__.__name__ + " - FRONT LIDAR FAILURE")
+            return
         elif self.use_lidar_center and status.name in ["/Lidars/lidar_center"] and not self.playing:
             self.play_audio_async("center_lidar_lost.wav")
             rospy.logerr(self.__class__.__name__ + " - CENTER LIDAR FAILURE")
+            return
         elif self.use_cameras and status.name in ["/Cameras"] and not self.playing:
             self.play_audio_async("cameras_lost.wav")
             rospy.logerr(self.__class__.__name__ + " - CAMERA FAILURE")
+            return
         elif self.use_cameras and status.name in ["/tfl_detection/Status"] and not self.playing:
             self.play_audio_async("trafficlight_stalled.wav")
             rospy.logerr(self.__class__.__name__ + " - CAMERA FAILURE")
+            return
 
     def process_ok(self, status):
         if status.name in self.staled_counter:
