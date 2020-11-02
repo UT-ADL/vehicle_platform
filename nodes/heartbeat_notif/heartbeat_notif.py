@@ -122,7 +122,7 @@ class heartbeat_notif:
             return
         elif self.use_cameras and status.name in ["/tfl_detection/Status"] and not self.playing:
             self.play_audio_async("trafficlight_stalled.wav")
-            rospy.logerr(self.__class__.__name__ + " - CAMERA FAILURE")
+            rospy.logerr(self.__class__.__name__ + " - TRAFFICLIGHT API FAILURE")
             return
 
     def process_ok(self, status):
