@@ -47,7 +47,7 @@
     <arg name="name" value="camera_fl" />
     <arg name="frame_id" value="camera_fl" />
     <arg name="ip" value="192.168.20.1" />
-    <arg name="acquisition_rate" value="20" />
+    <arg name="acquisition_rate" value="10" />
   </include>
 
   <!-- Front Right Camera -->
@@ -55,7 +55,7 @@
     <arg name="name" value="camera_fr" />
     <arg name="frame_id" value="camera_fr" />
     <arg name="ip" value="192.168.10.1" />
-    <arg name="acquisition_rate" value="20" />
+    <arg name="acquisition_rate" value="10" />
   </include>
 
   <!-- RADARS -->
