@@ -1,6 +1,7 @@
 <launch>
   <!-- Args to enable each sensor -->
-  <arg name="use_lidar" default="true" />
+  <arg name="use_lidar_center" default="true" />
+  <arg name="use_lidar_center_image" default="false" />
   <arg name="lidar_min_dist" default="0.4" />
   <arg name="use_lidar_front" default="true" />
   <arg name="lidar_front_min_dist" default="0.4" />
@@ -14,24 +15,24 @@
   <arg name="use_diagnostics" default="true" />
   <arg name="gps_driver_name" default="novatel" />
 
-  <!-- LIDAR -->
-  <group if="$(arg use_lidar)">
+  <!-- LIDAR Center - Ouster -->
+  <group if="$(arg use_lidar_center)" ns="lidar_center">
     <remap from="/velodyne_points" to="/points_raw_center" />
     <remap from="/velodyne_packets" to="/velodyne_packets_center" />
     <remap from="/scan" to="/scan_center" />
 
-    <include file="$(find velodyne_pointcloud)/launch/VLP-32C_points.launch">
-      <arg name="frame_id" value="lidar" />
-      <arg name="device_ip" value="192.168.1.201" />
-      <arg name="min_range" value="$(arg lidar_min_dist)" />
+    <include file="$(find vehicle_platform)/launch/ouster_lidar_driver.launch">
+      <arg name="sensor_hostname" value="192.168.3.200" />
+      <arg name="udp_dest" value="192.168.3.100" />
+      <arg name="lidar_mode" value="1024x20" />
+      <arg name="image" value="$(arg use_lidar_center_image)" />
+      <arg name="tf_prefix" value="lidar_center" />
     </include>
   </group>
 
-  <!-- LIDAR Front -->
-  <group if="$(arg use_lidar_front)">
-    <remap from="/velodyne_points" to="/points_raw_front" />
-    <remap from="/velodyne_packets" to="/velodyne_packets_front" />
-    <remap from="/scan" to="/scan_front" />
+  <!-- LIDAR Front - Velodyne -->
+  <group if="$(arg use_lidar_front)" ns="lidar_front">
+    <remap from="velodyne_points" to="points_raw" />
 
     <include if="$(arg use_lidar_front)" file="$(find velodyne_pointcloud)/launch/VLP16_points.launch">
       <arg name="frame_id" value="lidar_front" />
@@ -60,8 +61,8 @@
 
   <!-- RADARS -->
   <!-- Front Center ESR  -->
-  <group if="$(arg use_radar_fc)">
-    <include file="$(find delphi_esr)/launch/delphi_esr.launch" ns="radar_fc">
+  <group if="$(arg use_radar_fc)" ns="radar_fc">
+    <include file="$(find delphi_esr)/launch/delphi_esr.launch">
       <arg name="esr_frame_id" value="radar_fc" />
       <arg name="viz_mature_tracks_only" value="true" />
       <arg name="use_kvaser" value="true" />
@@ -107,7 +108,7 @@
 
   <!-- DIAGNOSTICS -->
   <include if="$(arg use_diagnostics)" file="$(find vehicle_platform)/launch/diagnostics.launch" >
-    <arg name="use_lidar" value="$(arg use_lidar)" />
+    <arg name="use_lidar_center" value="$(arg use_lidar_center)" />
     <arg name="use_lidar_front" value="$(arg use_lidar_front)" />
     <arg name="use_camera_fl" value="$(arg use_camera_fl)" />
     <arg name="use_camera_fr" value="$(arg use_camera_fr)" />
