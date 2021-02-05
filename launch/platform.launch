@@ -17,14 +17,10 @@
 
   <!-- LIDAR Center - Ouster -->
   <group if="$(arg use_lidar_center)" ns="lidar_center">
-    <remap from="/velodyne_points" to="/points_raw_center" />
-    <remap from="/velodyne_packets" to="/velodyne_packets_center" />
-    <remap from="/scan" to="/scan_center" />
-
     <include file="$(find vehicle_platform)/launch/ouster_lidar_driver.launch">
       <arg name="sensor_hostname" value="192.168.3.200" />
       <arg name="udp_dest" value="192.168.3.100" />
-      <arg name="lidar_mode" value="1024x20" />
+      <arg name="lidar_mode" value="1024x10" />
       <arg name="image" value="$(arg use_lidar_center_image)" />
       <arg name="tf_prefix" value="lidar_center" />
     </include>
@@ -36,9 +32,9 @@
 
     <include if="$(arg use_lidar_front)" file="$(find velodyne_pointcloud)/launch/VLP16_points.launch">
       <arg name="frame_id" value="lidar_front" />
-      <arg name="device_ip" value="192.168.2.12" />
+      <arg name="device_ip" value="192.168.1.201" />
       <arg name="min_range" value="$(arg lidar_front_min_dist)" />
-      <arg name="port" value="2369" />
+      <arg name="port" value="2368" />
     </include>
   </group>
 

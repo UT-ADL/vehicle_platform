@@ -1,7 +1,7 @@
 <robot name="vehicle_platform">
   <!-- Frames -->
   <link name="base_link" />
-  <link name="lidar" />
+  <link name="lidar_center/os_sensor" />
   <link name="lidar_front" />
   <link name="radar_fc" />
   <link name="imu" />
@@ -9,9 +9,9 @@
   <!-- Sensor Transforms -->
 
   <!-- Lidar -->
-  <joint name="lidar" type="fixed" >
+  <joint name="lidar_center/os_sensor" type="fixed" >
     <parent link="base_link" />
-    <child link="lidar" />
+    <child link="lidar_center/os_sensor" />
     <origin xyz="1.02 0 1.78734" rpy="0 0 0.017" />
   </joint>
 
