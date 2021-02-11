@@ -24,6 +24,7 @@
       <arg name="image" value="$(arg use_lidar_center_image)" />
       <arg name="tf_prefix" value="lidar_center" />
       <arg name="timestamp_mode" value="TIME_FROM_SYNC_PULSE_IN" />
+      <arg name="use_ros_time" value="true" />
     </include>
   </group>
 
@@ -36,6 +37,7 @@
       <arg name="device_ip" value="192.168.1.201" />
       <arg name="min_range" value="$(arg lidar_front_min_dist)" />
       <arg name="port" value="2368" />
+      <arg name="gps_time" value="false" />
     </include>
   </group>
 

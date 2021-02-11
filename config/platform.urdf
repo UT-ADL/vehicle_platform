@@ -5,14 +5,22 @@
   <link name="lidar_front" />
   <link name="radar_fc" />
   <link name="imu" />
+  <link name="lidar" />
 
   <!-- Sensor Transforms -->
 
-  <!-- Lidar -->
+  <!-- Lidar_center -->
   <joint name="lidar_center/os_sensor" type="fixed" >
     <parent link="base_link" />
     <child link="lidar_center/os_sensor" />
     <origin xyz="1.886 -0.033 1.640" rpy="0 0 0.022" />
+  </joint>
+
+  <!-- Lidar -->
+  <joint name="lidar" type="fixed" >
+    <parent link="lidar_center/os_sensor" />
+    <child link="lidar" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
   </joint>
 
   <!-- Lidar Front -->

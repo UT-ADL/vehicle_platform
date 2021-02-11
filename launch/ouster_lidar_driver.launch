@@ -9,6 +9,7 @@
     <arg name="metadata" default="" doc="override default metadata file for replays"/>
     <arg name="image" default="false" doc="publish range/intensity/ambient image topic"/>
     <arg name="tf_prefix" default="" doc="namespace for tf transforms"/>
+    <arg name="use_ros_time" default="" doc="Skip timestamp from sensor and use ROS instead"/>
 
     <node pkg="ouster_ros" name="os_node" type="os_node" output="screen" required="true">
         <remap from="~/os_config"       to="os_config"/>
@@ -31,6 +32,7 @@
         <remap from="~/points"          to="points_raw"/>
         <remap from="~/imu_packets"     to="imu_packets"/>
         <param name="~/tf_prefix"       value="$(arg tf_prefix)"/>
+        <param name="~/use_ros_time" value="$(arg use_ros_time)"/>
     </node>
 
     <node if="$(arg image)" pkg="ouster_ros" name="img_node" type="img_node" output="screen" required="true">
