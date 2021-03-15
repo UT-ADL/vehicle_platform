@@ -1,5 +1,5 @@
 <launch>
-  <arg name="use_lidar" default="true"/>
+  <arg name="use_lidar_center" default="true"/>
   <arg name="use_lidar_front" default="true"/>
   <arg name="use_camera_fl" default="true"/>
   <arg name="use_camera_fr" default="true"/>
@@ -10,7 +10,7 @@
   </node>
 
   <node pkg="vehicle_platform" type="heartbeat_notif.py" name="heartbeat_notif">
-    <param name="use_lidar_center" value="$(arg use_lidar)" />
+    <param name="use_lidar_center" value="$(arg use_lidar_center)" />
     <param name="use_lidar_front" value="$(arg use_lidar_front)" />
     <param name="use_cameras" value="$(eval use_camera_fl and use_camera_fr)" />
     <param name="use_gps" value="$(arg use_gps)" />
