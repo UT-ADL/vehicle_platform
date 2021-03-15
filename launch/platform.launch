@@ -72,10 +72,8 @@
   </group>
 
   <!-- GPS -->
-  <group>
-    <node if="$(arg use_diagnostics)" pkg="vehicle_platform" type="diagnostics_parser.py" name="diagnostics_parser" />
-    <remap from="/diagnostics" to="/unprocessed_diagnostics" />
-    <include if="$(arg use_gps)" file="$(find vehicle_platform)/launch/novatel_gps_driver.launch">
+  <group if="$(arg use_gps)">
+    <include file="$(find vehicle_platform)/launch/novatel_gps_driver.launch">
       <arg name="ip" value="192.168.100.150" />
       <arg name="port" value="2000" />
       <arg name="imu_rate" value="100" />
