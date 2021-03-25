@@ -27,7 +27,7 @@ class heartbeat_notif:
 
     def __init__(self):
         # We make sure all systems are operational before starting.
-        time.sleep(5)
+        time.sleep(10)
         rospy.loginfo(self.__class__.__name__ + " - node started")
         rospy.Subscriber('/diagnostics_agg', DiagnosticArray, self.process_agg_diagnostics, queue_size=1)
 
@@ -56,7 +56,6 @@ class heartbeat_notif:
             self.process_ok(status)
 
     def process_error(self, status):
-        print(str(status.level) + " : " + status.name)
         # GPS Errors are managed by a specific node
         if self.use_lidar_front and status.name in ["/Lidars/lidar_front"] and not self.playing:
             self.play_audio_async("lidar_front_error.wav")
@@ -120,14 +119,17 @@ class heartbeat_notif:
             self.play_audio_async("cameras_lost.wav")
             rospy.logerr(self.__class__.__name__ + " - CAMERA FAILURE")
             return
-        elif self.use_cameras and status.name in ["/tfl_detection/Status"] and not self.playing:
+        elif status.name in ["/tfl_detection/Status"] and not self.playing:
             self.play_audio_async("trafficlight_stalled.wav")
             rospy.logerr(self.__class__.__name__ + " - TRAFFICLIGHT API FAILURE")
             return
 
     def process_ok(self, status):
         if status.name in self.staled_counter:
-            self.staled_counter[status.name] = 0
+            if self.staled_counter[status.name] >= self.failure_trigger:
+                self.above_failure_trigger -= 1
+
+            del self.staled_counter[status.name]
             return
 
     def play_audio_async(self, filename):
