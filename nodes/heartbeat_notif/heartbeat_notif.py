@@ -111,7 +111,7 @@ class heartbeat_notif:
             self.play_audio_async("front_lidar_lost.wav")
             rospy.logerr(self.__class__.__name__ + " - FRONT LIDAR FAILURE")
             return
-        elif self.use_lidar_center and status.name in ["/Lidars/lidar_center"] and not self.playing:
+        elif self.use_lidar_center and status.name in ["/Lidars/lidar_center_publish"] and not self.playing:
             self.play_audio_async("center_lidar_lost.wav")
             rospy.logerr(self.__class__.__name__ + " - CENTER LIDAR FAILURE")
             return

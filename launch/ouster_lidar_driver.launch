@@ -10,6 +10,7 @@
     <arg name="image" default="false" doc="publish range/intensity/ambient image topic"/>
     <arg name="tf_prefix" default="" doc="namespace for tf transforms"/>
     <arg name="use_ros_time" default="" doc="Skip timestamp from sensor and use ROS instead"/>
+    <arg name="use_diagnostics" default="true" doc="Start the diagnostics node to publish the ROS diagnostics"/>
 
     <node pkg="ouster_ros" name="os_node" type="os_node" output="screen" required="true">
         <remap from="~/os_config"       to="os_config"/>
@@ -41,5 +42,9 @@
         <remap from="~/range_image"     to="range_image"/>
         <remap from="~/intensity_image" to="intensity_image"/>
         <remap from="~/points"          to="points_raw"/>
+    </node>
+
+    <node if="$(arg use_diagnostics)" pkg="ouster_ros" type="diagnostics_node" name="diagnostics_node" >
+        <param name="~/sensor_hostname" value="$(arg sensor_hostname)"/>
     </node>
 </launch>

@@ -25,6 +25,7 @@
       <arg name="tf_prefix" value="lidar_center" />
       <arg name="timestamp_mode" value="TIME_FROM_SYNC_PULSE_IN" />
       <arg name="use_ros_time" value="true" />
+      <arg name="use_diagnostics" default="true" />
     </include>
   </group>
 
