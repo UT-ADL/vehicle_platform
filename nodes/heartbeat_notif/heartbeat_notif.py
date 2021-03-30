@@ -48,6 +48,7 @@ class heartbeat_notif:
         """
         :type status: DiagnosticStatus
         """
+
         if status.level == 3:
             self.process_stale(status)
         elif status.level in [1, 2]:
@@ -73,6 +74,7 @@ class heartbeat_notif:
         Stale is when no diagnostics messages have been received for some time.
         :type status: DiagnosticStatus
         """
+
         # We will get a status for each prefix, we need to filter them to avoid redundancies.
         if status.name+"/" not in self.seen_prefixes:
             self.seen_prefixes.append(status.name+"/")
@@ -111,7 +113,7 @@ class heartbeat_notif:
             self.play_audio_async("front_lidar_lost.wav")
             rospy.logerr(self.__class__.__name__ + " - FRONT LIDAR FAILURE")
             return
-        elif self.use_lidar_center and status.name in ["/Lidars/lidar_center_publish"] and not self.playing:
+        elif self.use_lidar_center and status.name in ["/Lidars/lidar_center_publish", "/Lidars/lidar_center_publish/points topic status"] and not self.playing:
             self.play_audio_async("center_lidar_lost.wav")
             rospy.logerr(self.__class__.__name__ + " - CENTER LIDAR FAILURE")
             return
