@@ -11,6 +11,7 @@
     <arg name="tf_prefix" default="" doc="namespace for tf transforms"/>
     <arg name="use_ros_time" default="" doc="Skip timestamp from sensor and use ROS instead"/>
     <arg name="use_diagnostics" default="true" doc="Start the diagnostics node to publish the ROS diagnostics"/>
+    <arg name="range_img_max" default="120.0" doc="The largest distance still seen on the range image"/>
 
     <node pkg="ouster_ros" name="os_node" type="os_node" output="screen" required="true">
         <remap from="~/os_config"       to="os_config"/>
@@ -42,6 +43,7 @@
         <remap from="~/range_image"     to="range_image"/>
         <remap from="~/intensity_image" to="intensity_image"/>
         <remap from="~/points"          to="points_raw"/>
+        <param name="range_img_max"     value="$(arg range_img_max)"/>
     </node>
 
     <node if="$(arg use_diagnostics)" pkg="ouster_ros" type="diagnostics_node" name="diagnostics_node" >
