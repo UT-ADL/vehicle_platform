@@ -1,0 +1,7 @@
+<launch>
+  <machine name="nvidia_drive"
+           address="tegra-ubuntu"
+           user="nvidia"
+           env-loader="/home/nvidia/crosscompiled/ros/install_isolated/env.sh" />
+  <node machine="nvidia_drive" pkg="sekonix_camera_ut" type="sekonix_camera_ut_node" name="sekonix_camera_ut" />
+</launch>
