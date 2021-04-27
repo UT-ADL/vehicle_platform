@@ -19,28 +19,28 @@
 
     "command_filter": 0.02,
 
-    "speed_error_map": [0.0, 0.1, 2.0, 0.0, 0.1, 2.0],
+    "speed_error_map": [0.02, 0.2, 2.0, 0.0, 0.17, 2.0],
 
-    "positive_p_gain_map": [2.0, 5.0, 0.25, 0.45],
-    "negative_p_gain_map": [2.0, 5.0, 0.2, 0.45],
-    "min_p_term_map": [8.0, 12.0, -0.5, -0.7],
-    "max_p_term_map": [4.0, 12.0, 0.5, 0.7],
+    "positive_p_gain_map": [2.0, 5.0, 0.15, 0.4],
+    "negative_p_gain_map": [2.0, 5.0, 0.09, 0.45],
+    "min_p_term_map": [8.0, 12.0, -0.34, -0.45],
+    "max_p_term_map": [4.0, 12.0, 0.34, 0.5],
 
-    "positive_i_gain_map": [2.0, 8.0, 0.06, 0.1],
-    "negative_i_gain_map": [2.0, 8.0, 0.06, 0.1],
-    "min_i_term_map": [2.0, 8.0, -0.7, -0.7],
-    "max_i_term_map": [2.0, 8.0, 0.7, 0.7],
-    "error_based_min_i_term_map": [0.2, 1.0, -0.1, 0.1],
-    "error_based_max_i_term_map": [-2.0, 0.0, -0.1, 0.3],
+    "positive_i_gain_map": [2.0, 8.0, 0.021, 0.025],
+    "negative_i_gain_map": [8.0, 15.0, 0.02, 0.04],
+    "min_i_term_map": [2.0, 8.0, -0.9, -0.9],
+    "max_i_term_map": [2.0, 8.0, 0.15, 0.5],
+    "error_based_min_i_term_map": [0.4, 2.0, -0.5, 0.5],
+    "error_based_max_i_term_map": [-1.0, -0.3, -0.4, 0.4],
     "brake_max_step_command_map": [-4.0, -1.8, 0.4, 0.1],
 
-    "positive_d_gain_map": [2.0, 8.0, 0.01, 0.01],
-    "negative_d_gain_map": [2.0, 8.0, 0.01, 0.01],
-    "min_d_term_map": [2.0, 8.0, -0.02, -0.02],
-    "max_d_term_map": [2.0, 8.0, 0.02, 0.02],
+    "positive_d_gain_map": [5.0, 8.0, 0.11, 0.2],
+    "negative_d_gain_map": [5.0, 8.0, 0.14, 0.3],
+    "min_d_term_map": [2.0, 8.0, -0.06, -0.12],
+    "max_d_term_map": [2.0, 8.0, 0.04, 0.08],
 
-    "p_gain_braking": 0.3,
-    "d_gain_braking": 0.05,
+    "p_gain_braking": 0.2,
+    "d_gain_braking": 0.1,
 
     "decel_rate_to_brake_cmd_map": [-4.0, -0.5, 0.8, 0.3],
     "brake_ramp_on_scale_map": [-4.0, -1.5, 2.0, 0.8],
@@ -78,6 +78,6 @@
 
     "throttle_increasing_rate_limit_map": [0.2, 0.3, 1.0, 0.5],
 
-    "quick_stop_mode_rate": 0.0,
-    "quick_stop_mode_max": 0.0
+    "quick_stop_mode_rate": 1.0,
+    "quick_stop_mode_max": 1.0
 }
