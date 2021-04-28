@@ -14,6 +14,7 @@
   <arg name="use_tf" default="false" />
   <arg name="use_diagnostics" default="true" />
   <arg name="gps_driver_name" default="novatel" />
+  <arg name="use_nvidia_cameras" default="false" /> 
 
   <!-- LIDAR Center - Ouster -->
   <group if="$(arg use_lidar_center)" ns="lidar_center">
@@ -112,4 +113,7 @@
     <arg name="use_camera_fr" value="$(arg use_camera_fr)" />
     <arg name="use_gps" value="$(arg use_gps)" />
   </include>
+
+  <!-- REMOTE NVIDIA CAMERAS -->
+  <include if="$(arg use_nvidia_cameras)" file="$(find vehicle_platform)/launch/nvidia_cameras.launch" />
 </launch>

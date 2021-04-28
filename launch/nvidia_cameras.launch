@@ -1,4 +1,8 @@
 <launch>
+  <!-- NO PARAMS HERE - PARAMS MUST BE SET ON THE NVIDIA DRIVE -->
+  <!-- NO CONFIG FILES HERE - CONFIG FILES MUST BE CROSSCOMPILED ALONG WITH THE NODE -->
+  <!-- https://gitlab.cs.ut.ee/autonomous-driving-lab/autoware.ai/local/sekonix_camera_ut -->
+
   <machine name="nvidia_drive"
            address="tegra-ubuntu"
            user="nvidia"
