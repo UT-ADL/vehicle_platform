@@ -15,6 +15,7 @@
   <arg name="use_diagnostics" default="true" />
   <arg name="gps_driver_name" default="novatel" />
   <arg name="use_nvidia_cameras" default="false" /> 
+  <arg name="range_img_max" default="120.0" />
 
   <!-- LIDAR Center - Ouster -->
   <group if="$(arg use_lidar_center)" ns="lidar_center">
@@ -27,6 +28,7 @@
       <arg name="timestamp_mode" value="TIME_FROM_SYNC_PULSE_IN" />
       <arg name="use_ros_time" value="true" />
       <arg name="use_diagnostics" default="true" />
+      <arg name="range_img_max" value="$(arg range_img_max)"/>
     </include>
   </group>
 
