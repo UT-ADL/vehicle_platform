@@ -52,13 +52,13 @@
   <joint name="interfacea_link0" type="fixed" >
     <parent link="lidar" />
     <child link="interfacea_link0" />
-    <origin xyz="0.777 0.556 -0.475" rpy="-1.569 0.056 -1.148" />
+    <origin xyz="0.777 0.556 -0.475" rpy="-1.564 0.052 -1.137" />
   </joint>
 
   <joint name="interfacea_link1" type="fixed" >
     <parent link="lidar" />
     <child link="interfacea_link1" />
-    <origin xyz="0.848 -0.580 -0.503" rpy="-1.539 -0.021 -2.128" />
+    <origin xyz="0.848 -0.580 -0.503" rpy="-1.529 -0.021 -2.13" />
   </joint>
 
   <joint name="interfacea_link2" type="fixed" >
