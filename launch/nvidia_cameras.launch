@@ -3,6 +3,7 @@
   <!-- NO CONFIG FILES HERE - CONFIG FILES MUST BE CROSSCOMPILED ALONG WITH THE NODE -->
   <!-- https://gitlab.cs.ut.ee/autonomous-driving-lab/autoware.ai/local/sekonix_camera_ut -->
 
+  <arg name="framerate" default="30" doc="camera framerate"/>
   <arg name="uncompress" default="false" doc="uncompress images"/>
   <arg name="rectify" default="false" doc="rectify images" />
   <arg name="use_remote_driver" default="true" doc="Start the driver. Can be set to false to work with bags." />
@@ -12,7 +13,9 @@
              address="tegra-ubuntu"
              user="nvidia"
              env-loader="/home/nvidia/crosscompiled/ros/install_isolated/env.sh" />
-    <node machine="nvidia_drive" pkg="sekonix_camera_ut" type="sekonix_camera_ut_node" name="sekonix_camera_ut" />
+    <node machine="nvidia_drive" pkg="sekonix_camera_ut" type="sekonix_camera_ut_node" name="sekonix_camera_ut">
+      <param name="framerate" value="$(arg framerate)" />
+    </node>
   </group>
 
   <!-- Published in /interfaceX/linkY/repub-->
