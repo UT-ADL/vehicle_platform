@@ -1,0 +1,27 @@
+image_width: 2064
+image_height: 1544
+camera_name: camera_fr
+distortion_model: plumb_bob
+camera_model: plumb_bob
+camera_matrix:
+  rows: 3
+  cols: 3
+  data: [3.4984843933275097e+03, 0.,                     9.6812541578288244e+02,
+         0.,                     3.5109733959149094e+03, 7.5067240407732913e+02,
+         0.,                     0.,                     1.]
+distortion_coefficients:
+  rows: 1
+  cols: 5
+  data: [ -3.2482691458999791e-01, 1.6114050149069192e+00, 5.4610226917834348e-04, -1.0260275346290701e-03, -7.6391175553286015e+00 ]
+rectification_matrix:
+  rows: 3
+  cols: 3
+  data: [1., 0., 0.,
+         0., 1., 0.,
+         0., 0., 1.]
+projection_matrix:
+  rows: 3
+  cols: 4
+  data: [3.4984843933275097e+03, 0.,                     9.6812541578288244e+02, 0.,
+         0.,                     3.5109733959149094e+03, 7.5067240407732913e+02, 0.,
+         0.,                     0.,                     1.,                     0.]

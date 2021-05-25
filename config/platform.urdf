@@ -6,6 +6,8 @@
   <link name="radar_fc" />
   <link name="imu" />
   <link name="lidar" />
+  <link name="camera_fr" />
+  <link name="camera_fl" />
   <link name="interfacea_link0" />
   <link name="interfacea_link1" />
   <link name="interfacea_link2" />
@@ -46,6 +48,18 @@
     <parent link="base_link" />
     <child link="imu" />
     <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+
+  <!-- Mako Cameras -->
+  <joint name="camera_fr" type="fixed" >
+    <parent link="lidar" />
+    <child link="camera_fr" />
+    <origin xyz="1.0776 -0.26893 -0.65117" rpy="-1.40999 0.0939 -2.02844" />
+  </joint>
+  <joint name="camera_fl" type="fixed" >
+    <parent link="lidar" />
+    <child link="camera_fl" />
+    <origin xyz="1.11787 0.17502 -0.66163" rpy="-1.47631 -0.00633 -1.66711" />
   </joint>
 
   <!-- Nvidia Cameras -->
