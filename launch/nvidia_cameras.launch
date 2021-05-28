@@ -21,42 +21,42 @@
   <!-- Published in /interfaceX/linkY/repub-->
   <group if="$(eval uncompress or rectify)">
     <node pkg="image_transport" type="republish" name="interfacea_link0_uncompress" args="compressed">
-      <remap from="in" to="interfacea/link0/image_raw" />
-      <remap from="out" to="interfacea/link0/repub/image_raw" />
+      <remap from="in" to="interfacea/link0/image" />
+      <remap from="out" to="interfacea/link0/repub/image" />
     </node>
     <node pkg="image_transport" type="republish" name="interfacea_link1_uncompress" args="compressed">
-      <remap from="in" to="interfacea/link1/image_raw" />
-      <remap from="out" to="interfacea/link1/repub/image_raw" />
+      <remap from="in" to="interfacea/link1/image" />
+      <remap from="out" to="interfacea/link1/repub/image" />
     </node>
     <node pkg="image_transport" type="republish" name="interfacea_link2_uncompress" args="compressed">
-      <remap from="in" to="interfacea/link2/image_raw" />
-      <remap from="out" to="interfacea/link2/repub/image_raw/" />
+      <remap from="in" to="interfacea/link2/image" />
+      <remap from="out" to="interfacea/link2/repub/image/" />
     </node>
     <node pkg="image_transport" type="republish" name="interfacea_link3_uncompress" args="compressed">
-      <remap from="in" to="interfacea/link3/image_raw" />
-      <remap from="out" to="interfacea/link3/repub/image_raw" />
+      <remap from="in" to="interfacea/link3/image" />
+      <remap from="out" to="interfacea/link3/repub/image" />
     </node>
   </group>
 
   <!-- Published in /interfaceX/linkY/rect-->
   <group if="$(arg rectify)">
     <node pkg="nodelet" type="nodelet" name="interfacea_link0_rectifier" args="standalone image_proc/rectify" >
-      <remap from="/image_mono" to="interfacea/link0/repub/image_raw" />
+      <remap from="/image_mono" to="interfacea/link0/repub/image" />
       <remap from="/interfacea/link0/repub/camera_info" to="/interfacea/link0/camera_info" />
       <remap from="/image_rect" to="interfacea/link0/rect" />
     </node>
     <node pkg="nodelet" type="nodelet" name="interfacea_link1_rectifier" args="standalone image_proc/rectify" >
-      <remap from="/image_mono" to="interfacea/link1/repub/image_raw" />
+      <remap from="/image_mono" to="interfacea/link1/repub/image" />
       <remap from="/interfacea/link1/repub/camera_info" to="/interfacea/link1/camera_info" />
       <remap from="/image_rect" to="interfacea/link1/rect" />
     </node>
     <node pkg="nodelet" type="nodelet" name="interfacea_link2_rectifier" args="standalone image_proc/rectify" >
-      <remap from="/image_mono" to="interfacea/link2/repub/image_raw" />
+      <remap from="/image_mono" to="interfacea/link2/repub/image" />
       <remap from="/interfacea/link2/repub/camera_info" to="/interfacea/link2/camera_info" />
       <remap from="/image_rect" to="interfacea/link2/rect" />
     </node>
     <node pkg="nodelet" type="nodelet" name="interfacea_link3_rectifier" args="standalone image_proc/rectify" >
-      <remap from="/image_mono" to="interfacea/link3/repub/image_raw" />
+      <remap from="/image_mono" to="interfacea/link3/repub/image" />
       <remap from="/interfacea/link3/repub/camera_info" to="/interfacea/link3/camera_info" />
       <remap from="/image_rect" to="interfacea/link3/rect" />
     </node>
