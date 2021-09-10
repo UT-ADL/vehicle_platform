@@ -12,13 +12,13 @@
   <exec_depend>velodyne_driver</exec_depend>
   <exec_depend>mobileye_560_660</exec_depend>
   <exec_depend>novatel_gps_driver</exec_depend>
-  <exec_depend>delphi_esr</exec_depend>
   <exec_depend>delphi_srr</exec_depend>
   <exec_depend>pacmod3</exec_depend>
   <exec_depend>pacmod_game_control</exec_depend>
   <exec_depend>kvaser_interface</exec_depend>
 
   <depend>roscpp</depend>
+  <depend>delphi_esr</depend>
   <depend>delphi_esr_msgs</depend>
   <depend>message_generation</depend>
   <depend>message_runtime</depend>
