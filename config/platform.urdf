@@ -21,7 +21,7 @@
    <joint name="ground_zero" type="fixed" >
     <parent link="base_link" />
     <child link="ground_zero" />
-    <origin xyz="0 0 -0.3" rpy="0 0 0.015" />
+    <origin xyz="0 0 -0.3" rpy="0 0 0" />
   </joint>
 
   <!-- Lidar_center -->
