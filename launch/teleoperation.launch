@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+  <include file="$(find vehicle_platform)/launch/platform.launch">
+    <arg name="use_dbw" value="true" />
+    <arg name="use_lidar_front" value="false" />
+    <arg name="use_lidar_center" value="false" />
+    <arg name="use_diagnostics" value="false" />
+  </include>
+
+  <include file="$(find vehicle_platform)/launch/pacmod_game_control_nojoy.launch">
+    <arg name="launch_pacmod" value="false" />
+    <arg name="pacmod_vehicle_type" value="LEXUS_RX_450H" />
+    <arg name="controller_type" value="LOGITECH_G29" />
+  </include>
+
+  <include file="$(find vehicle_platform)/launch/nvidia_cameras.launch" />
+</launch>
