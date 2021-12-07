@@ -1,4 +1,4 @@
-image: ros:melodic-ros-core
+image: ros:melodic-ros-base
 
 before_script:
   - apt-get -qq update
