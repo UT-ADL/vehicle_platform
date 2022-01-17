@@ -40,9 +40,9 @@
 
   <!-- Lidar Front -->
   <joint name="lidar_front" type="fixed" >
-    <parent link="base_link" />
+    <parent link="lidar" />
     <child link="lidar_front" />
-    <origin xyz="1.92 -0.072 1.439" rpy="0.001 0.192 0.028" />
+    <origin xyz=" 0.82727 -0.00144 -0.20905" rpy="0.00302 -0.00092 0.0413"/>
   </joint>
 
   <!-- Front Center Radar -->
