@@ -63,12 +63,12 @@
   <joint name="camera_fr" type="fixed" >
     <parent link="lidar" />
     <child link="camera_fr" />
-    <origin xyz="1.0776 -0.26893 -0.65117" rpy="-1.40999 0.0939 -2.02844" />
+    <origin xyz="1.0 -0.21 -0.65" rpy="-1.38629 0.01096 -1.8499" />
   </joint>
   <joint name="camera_fl" type="fixed" >
     <parent link="lidar" />
     <child link="camera_fl" />
-    <origin xyz="1.11787 0.17502 -0.66163" rpy="-1.47631 -0.00633 -1.66711" />
+    <origin xyz="1.11787 0.17502 -0.66163" rpy="-1.43531 -0.00833 -1.67511" />
   </joint>
 
   <!-- Nvidia Cameras -->
