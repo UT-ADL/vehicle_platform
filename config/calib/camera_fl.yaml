@@ -6,13 +6,13 @@ camera_model: plumb_bob
 camera_matrix:
   rows: 3
   cols: 3
-  data: [3468.73879,             0.,                     1009.90437,
-         0.,                     3487.13961,             735.97327,
+  data: [3463.41019,             0.,                     1006.98485,
+         0.,                     3477.14660,             732.88833,
          0.,                     0.,                     1.]
 distortion_coefficients:
   rows: 1
   cols: 5
-  data: [ -0.275729, 0.485760, 0.003465, -0.000696, 0.000000 ]
+  data: [-3.245323e-01, 1.509787e+00, 2.272494e-03, -1.199028e-03, -6.874331e+00]
 rectification_matrix:
   rows: 3
   cols: 3
