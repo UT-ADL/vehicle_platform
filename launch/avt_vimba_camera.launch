@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <launch>
   <arg name="name" default="camera" doc="The name of the camera, this sets topic namespaces"/>
   <arg name="ip" default="" doc="The IP for the camera to connect to"/>
@@ -26,10 +27,19 @@
     <param name="pixel_format" value="BayerRG8" />
 
     <!-- Exposure params  -->
-    <param name="exposure" value="37053" />
-    <param name="gain" value="0" />
+    <param name="exposure" value="5000" />
     <param name="exposure_auto" value="Continuous" />
+    <param name="exposure_auto_alg" value="Mean" />
+    <param name="exposure_auto_max" value="20000"/>
+    <param name="exposure_auto_min" value="100"/>
+    <param name="exposure_auto_rate" value="50"/>
+    <param name="exposure_auto_target" value="50"/>
+    <param name="exposure_auto_tol" value="10"/>
     <param name="gain_auto" value="Continuous" />
+    <param name="gain" value="10" />
+    <param name="gain_auto_max" value="20"/>
+    <param name="gain_auto_min" value="0"/>
+    <param name="gain_auto_tol" value="10"/>
 
     <!-- Whitebalance params -->
     <param name="whitebalance_auto" value="Continuous" />
