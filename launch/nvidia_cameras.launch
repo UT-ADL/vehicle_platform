@@ -4,6 +4,7 @@
   <!-- https://gitlab.cs.ut.ee/autonomous-driving-lab/autoware.ai/local/sekonix_camera_ut -->
 
   <arg name="framerate" default="30" doc="camera framerate"/>
+  <arg name="encoder" default="jpg" doc="{jpg, h264}"/>
   <arg name="uncompress" default="false" doc="uncompress images"/>
   <arg name="rectify" default="false" doc="rectify images" />
   <arg name="use_remote_driver" default="true" doc="Start the driver. Can be set to false to work with bags." />
@@ -15,27 +16,50 @@
              env-loader="/home/nvidia/crosscompiled/ros/install_isolated/env.sh" />
     <node machine="nvidia_drive" pkg="sekonix_camera_ut" type="sekonix_camera_ut_node" name="sekonix_camera_ut">
       <param name="framerate" value="$(arg framerate)" />
+      <param name="encoder" value="$(arg encoder)" />
     </node>
   </group>
 
   <!-- Published in /interfaceX/linkY/repub-->
-  <group if="$(eval uncompress or rectify)">
-    <node pkg="image_transport" type="republish" name="interfacea_link0_uncompress" args="compressed">
-      <remap from="in" to="interfacea/link0/image" />
-      <remap from="out" to="interfacea/link0/repub/image" />
-    </node>
-    <node pkg="image_transport" type="republish" name="interfacea_link1_uncompress" args="compressed">
-      <remap from="in" to="interfacea/link1/image" />
-      <remap from="out" to="interfacea/link1/repub/image" />
-    </node>
-    <node pkg="image_transport" type="republish" name="interfacea_link2_uncompress" args="compressed">
-      <remap from="in" to="interfacea/link2/image" />
-      <remap from="out" to="interfacea/link2/repub/image/" />
-    </node>
-    <node pkg="image_transport" type="republish" name="interfacea_link3_uncompress" args="compressed">
-      <remap from="in" to="interfacea/link3/image" />
-      <remap from="out" to="interfacea/link3/repub/image" />
-    </node>
+  <group if="$(eval encoder == 'jpg')">
+      <group if="$(eval uncompress or rectify)">
+        <node pkg="image_transport" type="republish" name="interfacea_link0_uncompress_jpg" args="compressed">
+          <remap from="in" to="interfacea/link0/image" />
+          <remap from="out" to="interfacea/link0/repub/image" />
+        </node>
+        <node pkg="image_transport" type="republish" name="interfacea_link1_uncompress_jpg" args="compressed">
+          <remap from="in" to="interfacea/link1/image" />
+          <remap from="out" to="interfacea/link1/repub/image" />
+        </node>
+        <node pkg="image_transport" type="republish" name="interfacea_link2_uncompress_jpg" args="compressed">
+          <remap from="in" to="interfacea/link2/image" />
+          <remap from="out" to="interfacea/link2/repub/image/" />
+        </node>
+        <node pkg="image_transport" type="republish" name="interfacea_link3_uncompress_jpg" args="compressed">
+          <remap from="in" to="interfacea/link3/image" />
+          <remap from="out" to="interfacea/link3/repub/image" />
+        </node>
+      </group>
+  </group>
+  <group if="$(eval encoder == 'h264')">
+      <group if="$(eval uncompress or rectify)">
+        <node pkg="image_transport" type="republish" name="interfacea_link0_uncompress_h264" args="h264">
+          <remap from="in" to="interfacea/link0/image" />
+          <remap from="out" to="interfacea/link0/repub/image" />
+        </node>
+        <node pkg="image_transport" type="republish" name="interfacea_link1_uncompress_h264" args="h264">
+          <remap from="in" to="interfacea/link1/image" />
+          <remap from="out" to="interfacea/link1/repub/image" />
+        </node>
+        <node pkg="image_transport" type="republish" name="interfacea_link2_uncompress_h264" args="h264">
+          <remap from="in" to="interfacea/link2/image" />
+          <remap from="out" to="interfacea/link2/repub/image/" />
+        </node>
+        <node pkg="image_transport" type="republish" name="interfacea_link3_uncompress_h264" args="h264">
+          <remap from="in" to="interfacea/link3/image" />
+          <remap from="out" to="interfacea/link3/repub/image" />
+        </node>
+      </group>
   </group>
 
   <!-- Published in /interfaceX/linkY/rect-->

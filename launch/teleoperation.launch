@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
 <launch>
+  <arg name="encoder" default="h264" />
+
   <include file="$(find vehicle_platform)/launch/platform.launch">
     <arg name="use_dbw" value="true" />
     <arg name="use_lidar_front" value="false" />
@@ -13,5 +15,7 @@
     <arg name="controller_type" value="LOGITECH_G29" />
   </include>
 
-  <include file="$(find vehicle_platform)/launch/nvidia_cameras.launch" />
+  <include file="$(find vehicle_platform)/launch/nvidia_cameras.launch">
+    <arg name="encoder" value="$(arg encoder)" />
+  </include>
 </launch>
