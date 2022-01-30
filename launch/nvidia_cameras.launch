@@ -12,7 +12,7 @@
            address="tegra-ubuntu"
            user="nvidia"
            env-loader="/home/nvidia/crosscompiled/ros/install_isolated/env.sh" />
-  <node machine="nvidia_drive" pkg="sekonix_camera_ut" type="sekonix_camera_ut_node" name="sekonix_camera_ut">
+  <node machine="nvidia_drive" pkg="nvidia_gmsl_driver_ros" type="nvidia_gmsl_driver_ros_node" name="nvidia_gmsl_driver_ros">
     <param name="framerate" value="$(arg framerate)" />
     <param name="encoder" value="$(arg encoder)" />
   </node>
