@@ -7,6 +7,7 @@
   <arg name="encoder" default="jpg" doc="{jpg, h264}"/>
   <arg name="uncompress" default="false" doc="uncompress images"/>
   <arg name="rectify" default="false" doc="rectify images" />
+  <arg name="h264_bitrate" default="8000000" doc="H264 Bitrate"/>  
 
   <machine name="nvidia_drive"
            address="tegra-ubuntu"
@@ -15,6 +16,7 @@
   <node machine="nvidia_drive" pkg="nvidia_gmsl_driver_ros" type="nvidia_gmsl_driver_ros_node" name="nvidia_gmsl_driver_ros">
     <param name="framerate" value="$(arg framerate)" />
     <param name="encoder" value="$(arg encoder)" />
+    <param name="h264_bitrate" value="$(arg h264_bitrate)" />
   </node>
 
   <include if="$(eval uncompress and encoder=='jpg')" file="$(find vehicle_platform)/launch/nvidia_cameras_decoder.launch">
