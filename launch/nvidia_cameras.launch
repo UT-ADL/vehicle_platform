@@ -4,61 +4,70 @@
   <!-- https://gitlab.cs.ut.ee/autonomous-driving-lab/autoware.ai/local/sekonix_camera_ut -->
 
   <arg name="framerate" default="30" doc="camera framerate"/>
+  <arg name="encoder" default="jpg" doc="{jpg, h264}"/>
   <arg name="uncompress" default="false" doc="uncompress images"/>
-  <arg name="rectify" default="false" doc="rectify images" />
-  <arg name="use_remote_driver" default="true" doc="Start the driver. Can be set to false to work with bags." />
+  <arg name="rectify" default="false" doc="rectify images"/>
+  <arg name="h264_bitrate" default="8000000" doc="H264 Bitrate"/>
+  <arg name="use_remote_driver" default="true" doc="Start the driver. Can be set to false to work with bags."/>
 
   <group if="$(arg use_remote_driver)">
     <machine name="nvidia_drive"
              address="tegra-ubuntu"
              user="nvidia"
-             env-loader="/home/nvidia/crosscompiled/ros/install_isolated/env.sh" />
-    <node machine="nvidia_drive" pkg="sekonix_camera_ut" type="sekonix_camera_ut_node" name="sekonix_camera_ut">
-      <param name="framerate" value="$(arg framerate)" />
+             env-loader="/home/nvidia/crosscompiled/ros/install_isolated/env.sh"/>
+    <node machine="nvidia_drive" pkg="nvidia_gmsl_driver_ros" type="nvidia_gmsl_driver_ros_node"
+          name="nvidia_gmsl_driver_ros">
+      <param name="framerate" value="$(arg framerate)"/>
+      <param name="encoder" value="$(arg encoder)"/>
+      <param name="h264_bitrate" value="$(arg h264_bitrate)"/>
     </node>
   </group>
 
   <!-- Published in /interfaceX/linkY/repub-->
   <group if="$(eval uncompress or rectify)">
-    <node pkg="image_transport" type="republish" name="interfacea_link0_uncompress" args="compressed">
-      <remap from="in" to="interfacea/link0/image" />
-      <remap from="out" to="interfacea/link0/repub/image" />
+    <node pkg="image_transport" type="republish" name="interfacea_link0_uncompress_$(arg encoder)"
+          args="$(eval 'compressed' if encoder=='jpg' else encoder)">
+      <remap from="in" to="interfacea/link0/image"/>
+      <remap from="out" to="interfacea/link0/repub/image"/>
     </node>
-    <node pkg="image_transport" type="republish" name="interfacea_link1_uncompress" args="compressed">
-      <remap from="in" to="interfacea/link1/image" />
-      <remap from="out" to="interfacea/link1/repub/image" />
+    <node pkg="image_transport" type="republish" name="interfacea_link1_uncompress_$(arg encoder)"
+          args="$(eval 'compressed' if encoder=='jpg' else encoder)">
+      <remap from="in" to="interfacea/link1/image"/>
+      <remap from="out" to="interfacea/link1/repub/image"/>
     </node>
-    <node pkg="image_transport" type="republish" name="interfacea_link2_uncompress" args="compressed">
-      <remap from="in" to="interfacea/link2/image" />
-      <remap from="out" to="interfacea/link2/repub/image/" />
+    <node pkg="image_transport" type="republish" name="interfacea_link2_uncompress_$(arg encoder)"
+          args="$(eval 'compressed' if encoder=='jpg' else encoder)">
+      <remap from="in" to="interfacea/link2/image"/>
+      <remap from="out" to="interfacea/link2/repub/image/"/>
     </node>
-    <node pkg="image_transport" type="republish" name="interfacea_link3_uncompress" args="compressed">
-      <remap from="in" to="interfacea/link3/image" />
-      <remap from="out" to="interfacea/link3/repub/image" />
+    <node pkg="image_transport" type="republish" name="interfacea_link3_uncompress_$(arg encoder)"
+          args="$(eval 'compressed' if encoder=='jpg' else encoder)">
+      <remap from="in" to="interfacea/link3/image"/>
+      <remap from="out" to="interfacea/link3/repub/image"/>
     </node>
   </group>
 
   <!-- Published in /interfaceX/linkY/rect-->
   <group if="$(arg rectify)">
-    <node pkg="nodelet" type="nodelet" name="interfacea_link0_rectifier" args="standalone image_proc/rectify" >
-      <remap from="/image_mono" to="interfacea/link0/repub/image" />
-      <remap from="/interfacea/link0/repub/camera_info" to="/interfacea/link0/camera_info" />
-      <remap from="/image_rect" to="interfacea/link0/rect" />
+    <node pkg="nodelet" type="nodelet" name="interfacea_link0_rectifier" args="standalone image_proc/rectify">
+      <remap from="/image_mono" to="interfacea/link0/repub/image"/>
+      <remap from="/interfacea/link0/repub/camera_info" to="/interfacea/link0/camera_info"/>
+      <remap from="/image_rect" to="interfacea/link0/rect"/>
     </node>
-    <node pkg="nodelet" type="nodelet" name="interfacea_link1_rectifier" args="standalone image_proc/rectify" >
-      <remap from="/image_mono" to="interfacea/link1/repub/image" />
-      <remap from="/interfacea/link1/repub/camera_info" to="/interfacea/link1/camera_info" />
-      <remap from="/image_rect" to="interfacea/link1/rect" />
+    <node pkg="nodelet" type="nodelet" name="interfacea_link1_rectifier" args="standalone image_proc/rectify">
+      <remap from="/image_mono" to="interfacea/link1/repub/image"/>
+      <remap from="/interfacea/link1/repub/camera_info" to="/interfacea/link1/camera_info"/>
+      <remap from="/image_rect" to="interfacea/link1/rect"/>
     </node>
-    <node pkg="nodelet" type="nodelet" name="interfacea_link2_rectifier" args="standalone image_proc/rectify" >
-      <remap from="/image_mono" to="interfacea/link2/repub/image" />
-      <remap from="/interfacea/link2/repub/camera_info" to="/interfacea/link2/camera_info" />
-      <remap from="/image_rect" to="interfacea/link2/rect" />
+    <node pkg="nodelet" type="nodelet" name="interfacea_link2_rectifier" args="standalone image_proc/rectify">
+      <remap from="/image_mono" to="interfacea/link2/repub/image"/>
+      <remap from="/interfacea/link2/repub/camera_info" to="/interfacea/link2/camera_info"/>
+      <remap from="/image_rect" to="interfacea/link2/rect"/>
     </node>
-    <node pkg="nodelet" type="nodelet" name="interfacea_link3_rectifier" args="standalone image_proc/rectify" >
-      <remap from="/image_mono" to="interfacea/link3/repub/image" />
-      <remap from="/interfacea/link3/repub/camera_info" to="/interfacea/link3/camera_info" />
-      <remap from="/image_rect" to="interfacea/link3/rect" />
+    <node pkg="nodelet" type="nodelet" name="interfacea_link3_rectifier" args="standalone image_proc/rectify">
+      <remap from="/image_mono" to="interfacea/link3/repub/image"/>
+      <remap from="/interfacea/link3/repub/camera_info" to="/interfacea/link3/camera_info"/>
+      <remap from="/image_rect" to="interfacea/link3/rect"/>
     </node>
   </group>
 </launch>
