@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <launch>
   <!-- Args to enable each sensor -->
   <arg name="use_lidar_center" default="true" />
@@ -7,6 +8,7 @@
   <arg name="lidar_front_min_dist" default="0.4" />
   <arg name="use_camera_fl" default="false" />
   <arg name="use_camera_fr" default="false" />
+  <arg name="acquisition_rate" default="10" />
   <arg name="use_radar_fc" default="false" />
   <arg name="use_gps" default="false" />
   <arg name="use_dbw" default="false" />
@@ -51,7 +53,7 @@
     <arg name="name" value="camera_fl" />
     <arg name="frame_id" value="camera_fl" />
     <arg name="ip" value="192.168.20.1" />
-    <arg name="acquisition_rate" value="10" />
+    <arg name="acquisition_rate" value="$(arg acquisition_rate)" />
   </include>
 
   <!-- Front Right Camera -->
@@ -59,7 +61,7 @@
     <arg name="name" value="camera_fr" />
     <arg name="frame_id" value="camera_fr" />
     <arg name="ip" value="192.168.10.1" />
-    <arg name="acquisition_rate" value="10" />
+    <arg name="acquisition_rate" value="$(arg acquisition_rate)" />
   </include>
 
   <!-- RADARS -->
