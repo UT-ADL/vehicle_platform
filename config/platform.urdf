@@ -1,8 +1,8 @@
 <robot name="vehicle_platform">
   <!-- Frames -->
   <link name="base_link" />
-  <link name="lidar_center/os_sensor" />
-  <link name="lidar_front" />
+  <link name="lidar_center" />
+  <link name="lidar_front/os_sensor" />
   <link name="radar_fc" />
   <link name="imu" />
   <link name="lidar" />
@@ -25,23 +25,23 @@
   </joint>
 
   <!-- Lidar_center -->
-  <joint name="lidar_center/os_sensor" type="fixed" >
+  <joint name="lidar_center" type="fixed" >
     <parent link="base_link" />
-    <child link="lidar_center/os_sensor" />
-    <origin xyz="1.02 0 1.78734" rpy="0 0 0.015" />
+    <child link="lidar_center" />
+    <origin xyz="1.02 0 1.78734" rpy="0 0 -0.0459" />
   </joint>
 
   <!-- Lidar -->
   <joint name="lidar" type="fixed" >
-    <parent link="lidar_center/os_sensor" />
+    <parent link="lidar_center" />
     <child link="lidar" />
     <origin xyz="0 0 0" rpy="0 0 0" />
   </joint>
 
   <!-- Lidar Front -->
-  <joint name="lidar_front" type="fixed" >
+  <joint name="lidar_front/os_sensor" type="fixed" >
     <parent link="lidar" />
-    <child link="lidar_front" />
+    <child link="lidar_front/os_sensor" />
     <origin xyz=" 0.82727 -0.00144 -0.20905" rpy="0.00302 -0.00092 0.0413"/>
   </joint>
 
