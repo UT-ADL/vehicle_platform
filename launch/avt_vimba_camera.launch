@@ -32,8 +32,8 @@
     <param name="exposure_auto_alg" value="Mean" />
     <param name="exposure_auto_max" value="50000"/>
     <param name="exposure_auto_min" value="100"/>
-    <param name="exposure_auto_rate" value="50"/>
-    <param name="exposure_auto_target" value="50"/>
+    <param name="exposure_auto_rate" value="75"/>
+    <param name="exposure_auto_target" value="45"/>
     <param name="exposure_auto_tol" value="5"/>
 
     <!-- Gain  -->
@@ -41,8 +41,8 @@
     <param name="gain" value="5" />
     <param name="gain_auto_max" value="30"/>
     <param name="gain_auto_min" value="0"/>
-    <param name="gain_auto_rate" value="20"/>
-    <param name="gain_auto_target" value="50"/>
+    <param name="gain_auto_rate" value="50"/>
+    <param name="gain_auto_target" value="45"/>
     <param name="gain_auto_adjust_tol" value="5"/>
 
     <!-- Whitebalance params -->
