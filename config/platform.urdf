@@ -73,27 +73,27 @@
 
   <!-- Nvidia Cameras -->
   <joint name="interfacea_link0" type="fixed" >
-    <parent link="lidar" />
+    <parent link="lidar_front/os_sensor" />
     <child link="interfacea_link0" />
-    <origin xyz="0.777 0.556 -0.475" rpy="-1.594 0.032 -1.477" />
+    <origin xyz="-0.055 0.57 -0.125" rpy="-1.536 0.014 -1.535" />
   </joint>
 
   <joint name="interfacea_link1" type="fixed" >
-    <parent link="lidar" />
+    <parent link="lidar_front/os_sensor" />
     <child link="interfacea_link1" />
-    <origin xyz="0.848 -0.580 -0.503" rpy="-1.564 0.039 -1.58" />
+    <origin xyz="-0.055 -0.54 -0.125" rpy="-1.508 -0.013 -1.565" />
   </joint>
 
   <joint name="interfacea_link2" type="fixed" >
-    <parent link="lidar" />
+    <parent link="lidar_front/os_sensor" />
     <child link="interfacea_link2" />
-    <origin xyz="0.776 -0.111 -0.457" rpy="-1.584 0.036 -1.604" />
+    <origin xyz="-0.01 -0.14 -0.125" rpy="-1.532 0.004 -1.599" />
   </joint>
 
   <joint name="interfacea_link3" type="fixed" >
-    <parent link="lidar" />
+    <parent link="lidar_front/os_sensor" />
     <child link="interfacea_link3" />
-    <origin xyz="0.858 0.181 -0.486" rpy="-1.572 0.017 -1.613" />
+    <origin xyz="-0.015 0.17 -0.125" rpy="-1.527 -0.007 -1.597" />
   </joint>
 
 </robot>
