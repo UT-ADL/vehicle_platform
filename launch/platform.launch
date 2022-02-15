@@ -19,14 +19,14 @@
   <arg name="use_nvidia_cameras" default="false" /> 
   <arg name="range_img_max" default="120.0" />
 
-  <!-- LIDAR Center - Ouster -->
-  <group if="$(arg use_lidar_center)" ns="lidar_center">
+  <!-- LIDAR front - Ouster -->
+  <group if="$(arg use_lidar_front)" ns="lidar_front">
     <include file="$(find vehicle_platform)/launch/ouster_lidar_driver.launch">
       <arg name="sensor_hostname" value="192.168.3.200" />
       <arg name="udp_dest" value="192.168.3.100" />
       <arg name="lidar_mode" value="1024x10" />
-      <arg name="image" value="$(arg use_lidar_center_image)" />
-      <arg name="tf_prefix" value="lidar_center" />
+      <!-- <arg name="image" value="$(arg use_lidar_front_image)" /> -->
+      <arg name="tf_prefix" value="lidar_front" />
       <arg name="timestamp_mode" value="TIME_FROM_SYNC_PULSE_IN" />
       <arg name="use_ros_time" value="true" />
       <arg name="use_diagnostics" default="true" />
@@ -34,14 +34,14 @@
     </include>
   </group>
 
-  <!-- LIDAR Front - Velodyne -->
-  <group if="$(arg use_lidar_front)" ns="lidar_front">
+  <!-- LIDAR center - Velodyne -->
+  <group if="$(arg use_lidar_center)" ns="lidar_center">
     <remap from="velodyne_points" to="points_raw" />
 
-    <include if="$(arg use_lidar_front)" file="$(find velodyne_pointcloud)/launch/VLP-32C_points.launch">
-      <arg name="frame_id" value="lidar_front" />
+    <include if="$(arg use_lidar_center)" file="$(find velodyne_pointcloud)/launch/VLP-32C_points.launch">
+      <arg name="frame_id" value="lidar_center" />
       <arg name="device_ip" value="192.168.1.201" />
-      <arg name="min_range" value="$(arg lidar_front_min_dist)" />
+      <!-- <arg name="min_range" value="$(arg lidar_center_min_dist)" /> -->
       <arg name="port" value="2368" />
       <arg name="gps_time" value="false" />
     </include>
