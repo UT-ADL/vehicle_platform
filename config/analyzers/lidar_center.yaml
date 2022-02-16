@@ -3,15 +3,9 @@ analyzers:
     type: diagnostic_aggregator/AnalyzerGroup
     path: Lidars
     analyzers:
-      lidar_center_publish:
+      lidar_front:
         type: diagnostic_aggregator/GenericAnalyzer
-        path: lidar_center_publish
-        find_and_remove_prefix: 'lidar_center/os_cloud_node: '
+        path: lidar_front
+        find_and_remove_prefix: 'lidar_center/lidar_center_nodelet_manager_driver: velodyne_packets '
         num_items: 1
-        timeout: 2
-      lidar_center_api:
-        type: diagnostic_aggregator/GenericAnalyzer
-        path: lidar_center_api
-        find_and_remove_prefix: 'lidar_center/diagnostics_node: '
-        num_items: 2
         timeout: 2

@@ -2,10 +2,10 @@
 <launch>
   <!-- Args to enable each sensor -->
   <arg name="use_lidar_center" default="true" />
-  <arg name="use_lidar_center_image" default="false" />
-  <arg name="lidar_min_dist" default="0.4" />
+  <arg name="lidar_center_min_dist" default="0.4" />
   <arg name="use_lidar_front" default="true" />
-  <arg name="lidar_front_min_dist" default="0.4" />
+  <arg name="use_lidar_front_image" default="false" />
+  <arg name="lidar_min_dist" default="0.4" />   <!-- unused parameter -->
   <arg name="use_camera_fl" default="false" />
   <arg name="use_camera_fr" default="false" />
   <arg name="acquisition_rate" default="10" />
@@ -25,7 +25,7 @@
       <arg name="sensor_hostname" value="192.168.3.200" />
       <arg name="udp_dest" value="192.168.3.100" />
       <arg name="lidar_mode" value="1024x10" />
-      <!-- <arg name="image" value="$(arg use_lidar_front_image)" /> -->
+      <arg name="image" value="$(arg use_lidar_front_image)" />
       <arg name="tf_prefix" value="lidar_front" />
       <arg name="timestamp_mode" value="TIME_FROM_SYNC_PULSE_IN" />
       <arg name="use_ros_time" value="true" />
@@ -41,7 +41,7 @@
     <include if="$(arg use_lidar_center)" file="$(find velodyne_pointcloud)/launch/VLP-32C_points.launch">
       <arg name="frame_id" value="lidar_center" />
       <arg name="device_ip" value="192.168.1.201" />
-      <!-- <arg name="min_range" value="$(arg lidar_center_min_dist)" /> -->
+      <arg name="min_range" value="$(arg lidar_center_min_dist)" />
       <arg name="port" value="2368" />
       <arg name="gps_time" value="false" />
     </include>

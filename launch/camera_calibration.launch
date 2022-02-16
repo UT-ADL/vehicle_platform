@@ -1,15 +1,31 @@
 <?xml version="1.0"?>
 <launch>
+
+  <!-- Args to enable each sensor -->
+  <arg name="use_nvidia_cameras" value="false"/> 
+  <arg name="use_lidar_front" value="true"/>
+  <arg name="use_lidar_center" value="true"/>
+  <arg name="use_diagnostics" value="false"/>
+  <arg name="use_camera_fl" value="true"/>
+  <arg name="use_camera_fr" value="true"/>
+  <arg name="use_tf" value="true"/>
+  <arg name="rectify" value="false"/>
+
   <include file="$(find vehicle_platform)/launch/platform.launch">
-    <arg name="use_lidar_front" value="false" />
-    <arg name="use_lidar_center" value="true" />
-    <arg name="use_diagnostics" value="false" />
-    <arg name="use_camera_fl" value="true" />
-    <arg name="use_camera_fr" value="true" />
-    <arg name="use_tf" value="true" />
+    <arg name="use_lidar_front" value="$(arg use_lidar_front)"/>
+    <arg name="use_lidar_center" value="$(arg use_lidar_center)"/>
+    <arg name="use_diagnostics" value="$(arg use_diagnostics)"/>
+    <arg name="use_camera_fl" value="$(arg use_camera_fl)"/>
+    <arg name="use_camera_fr" value="$(arg use_camera_fl)"/>
+    <arg name="use_tf" value="true"/>
   </include>
 
-  <include file="$(find vehicle_platform)/launch/nvidia_cameras.launch">
+  <group if="$(arg rectify)">
+    <node if="$(arg use_camera_fr)" pkg="image_proc" name="image_proc" type="image_proc" ns="camera_fr"/>
+    <node if="$(arg use_camera_fl)" pkg="image_proc" name="image_proc" type="image_proc" ns="camera_fl"/>
+  </group>
+
+  <include if="$(arg use_nvidia_cameras)" file="$(find vehicle_platform)/launch/nvidia_cameras.launch">
     <arg name="rectify" value="true" />
   </include>
 
