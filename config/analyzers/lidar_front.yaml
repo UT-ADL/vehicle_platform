@@ -5,7 +5,7 @@ analyzers:
     analyzers:
       lidar_front_publish:
         type: diagnostic_aggregator/GenericAnalyzer
-        path: lidar_center_publish
+        path: lidar_front_publish
         find_and_remove_prefix: 'lidar_front/os_cloud_node: '
         num_items: 1
         timeout: 2
