@@ -38,8 +38,6 @@
     <origin xyz="0 0 0" rpy="0 0 0" />
   </joint>
 
-
-
   <!-- Lidar Front -->
   <joint name="lidar_front/os_sensor" type="fixed" >
     <parent link="lidar" />
@@ -61,17 +59,18 @@
     <origin xyz="0 0 0" rpy="0 0 0" />
   </joint>
 
-  <!-- Mako Cameras -->
+    <!-- Mako Cameras -->
   <joint name="camera_fr" type="fixed" >
-    <parent link="lidar_front/os_sensor" />
+    <parent link="lidar_center" />
     <child link="camera_fr" />
-    <origin xyz="0.23 -0.227 -0.33" rpy="-1.30929 -0.02004 -1.8479" />
+    <origin xyz="1.130 -0.174 -0.689" rpy="-1.36404 -0.00223 -1.78766" />
   </joint>
+
   <joint name="camera_fl" type="fixed" >
-    <parent link="lidar_front/os_sensor" />
+    <parent link="lidar_center" />
     <child link="camera_fl" />
-    <origin xyz="0.187 0.23 -0.34" rpy="-1.40831 -0.01033 -1.68511" />
-  </joint>
+    <origin xyz="1.059 0.279 -0.689" rpy="-1.41203 -0.01469 -1.41365" />
+  </joint> 
 
   <!-- Nvidia Cameras -->
   <joint name="interfacea_link0" type="fixed" >
