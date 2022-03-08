@@ -42,7 +42,7 @@
   <joint name="lidar_front/os_sensor" type="fixed" >
     <parent link="lidar" />
     <child link="lidar_front/os_sensor" />
-    <origin xyz=" 0.90509 0.03386 -0.344505" rpy="0.0167 0.05216 0.06163"/>
+    <origin xyz="[0.85079 0.0400148 -0.340915" rpy="-0.0 0.0 0.858853"/>
   </joint>
 
   <!-- Front Center Radar -->
