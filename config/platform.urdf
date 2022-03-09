@@ -40,9 +40,9 @@
 
   <!-- Lidar Front -->
   <joint name="lidar_front/os_sensor" type="fixed" >
-    <parent link="lidar" />
+    <parent link="lidar_center" />
     <child link="lidar_front/os_sensor" />
-    <origin xyz="0.85079 0.0400148 -0.340915" rpy="-0.0 0.0 0.858853"/>
+    <origin xyz="0.84979 0.06501 -0.28092" rpy="0.0119 0.003 0.86855"/>
   </joint>
 
   <!-- Front Center Radar -->
@@ -69,7 +69,7 @@
   <joint name="camera_fl" type="fixed" >
     <parent link="lidar_center" />
     <child link="camera_fl" />
-    <origin xyz="1.059 0.279 -0.689" rpy="-1.41203 -0.01469 -1.41365" />
+    <origin xyz="1.009 0.278 -0.689" rpy="-1.40103 -0.00669 -1.41965" />
   </joint> 
 
   <!-- Nvidia Cameras -->
