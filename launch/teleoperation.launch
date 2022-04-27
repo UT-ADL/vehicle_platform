@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
 <launch>
-  <arg name="encoder" default="h264" />
-
   <include file="$(find vehicle_platform)/launch/platform.launch">
     <arg name="use_dbw" value="true" />
     <arg name="use_lidar_front" value="false" />
@@ -16,6 +14,7 @@
   </include>
 
   <include file="$(find vehicle_platform)/launch/nvidia_cameras.launch">
-    <arg name="encoder" value="$(arg encoder)" />
+    <arg name="encoder" value="h264" />
+    <arg name="h264_bitrate" value="2000000" />
   </include>
 </launch>
