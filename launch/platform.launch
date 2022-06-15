@@ -74,7 +74,6 @@
       <arg name="kvaser_hardware_id" value="10761" />
       <arg name="kvaser_circuit_id" value="1" />
     </include>
-    <node pkg="vehicle_platform" name="radar_topic_merger" type="radar_topic_merger" />
   </group>
 
   <!-- GPS -->
