@@ -1,0 +1,23 @@
+<launch>
+    <!-- NO PARAMS HERE - PARAMS MUST BE SET ON THE NVIDIA DRIVE -->
+    <!-- NO CONFIG FILES HERE - CONFIG FILES MUST BE CROSSCOMPILED ALONG WITH THE NODE -->
+    <!-- https://github.com/UT-ADL/nvidia_gmsl_driver_ros -->
+
+    <arg name="framerate" default="30" doc="camera framerate"/>
+    <arg name="encoder" default="jpg" doc="{jpg, h264}"/>
+    <arg name="uncompress" default="false" doc="uncompress images"/>
+    <arg name="rectify" default="false" doc="rectify images"/>
+    <arg name="h264_bitrate" default="8000000" doc="H264 Bitrate"/>
+    <arg name="use_remote_driver" default="true" doc="Start the driver. Can be set to false to work with bags."/>
+
+    <include file="$(find vehicle_platform)/launch/drivers/nvidia_cameras_driver.launch">
+        <arg name="host" value="tegra-ubuntu" />
+        <arg name="user" value="nvidia" />
+        <arg name="framerate" value="$(arg framerate)" />
+        <arg name="encoder" value="$(arg encoder)" />
+        <arg name="uncompress" value="$(arg uncompress)" />
+        <arg name="rectify" value="$(arg rectify)" />
+        <arg name="h264_bitrate" value="$(arg h264_bitrate)" />
+        <arg name="use_remote_driver" default="$(arg use_remote_driver)" />
+    </include>
+</launch>

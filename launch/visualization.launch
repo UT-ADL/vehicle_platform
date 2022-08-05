@@ -12,5 +12,5 @@
     <arg name="use_diagnostics" default="false" />
   </include>
 
-  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find vehicle_platform)/config/platform_sensors.rviz" required="true" />
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find vehicle_platform)/rviz/platform_sensors.rviz" required="true" />
 </launch>

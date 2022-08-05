@@ -1,0 +1,10 @@
+<launch>
+  <arg name="acquisition_rate" default="10" />
+
+  <include file="$(find vehicle_platform)/launch/drivers/avt_vimba_camera.launch">
+    <arg name="name" value="camera_fr" />
+    <arg name="frame_id" value="camera_fr" />
+    <arg name="ip" value="192.168.10.1" />
+    <arg name="acquisition_rate" value="$(arg acquisition_rate)" />
+  </include>
+</launch>
