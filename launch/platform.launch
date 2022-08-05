@@ -56,4 +56,5 @@
   <include if="$(arg use_nvidia_cameras)" file="$(find vehicle_platform)/launch/sensors/nvidia_cameras.launch">
     <arg name="rectify" value="$(arg rectify)" />
   </include>
+
 </launch>

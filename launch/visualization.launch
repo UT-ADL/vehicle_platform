@@ -1,8 +1,8 @@
 <launch>
   <include file="$(find vehicle_platform)/launch/platform.launch">
     <!-- Args to enable all sensors -->
-    <arg name="use_lidar_front" value="true" />
     <arg name="use_lidar_center" value="true" />
+    <arg name="use_lidar_front" value="true" />
     <arg name="use_camera_fl" value="true" />
     <arg name="use_camera_fr" value="true" />
     <arg name="use_radar_fc" value="true" />
