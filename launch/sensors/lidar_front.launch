@@ -1,6 +1,6 @@
 <launch>
     <arg name="image" default="false" doc="publish range/intensity/ambient image topic"/>
-    <arg name="range_img_max" default="120.0" doc="The largest distance still seen on the range image"/>
+    <arg name="range_img_max" default="50.0" doc="The largest distance still seen on the range image"/>
 
     <group ns="lidar_front">
         <include file="$(find vehicle_platform)/launch/drivers/ouster_lidar_driver.launch">

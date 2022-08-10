@@ -5,7 +5,7 @@
         <include file="$(find velodyne_pointcloud)/launch/VLP-32C_points.launch">
             <arg name="frame_id" value="lidar_center" />
             <arg name="device_ip" value="192.168.1.201" />
-            <arg name="min_range" value="0.4" />
+            <arg name="min_range" value="2.2" />
             <arg name="port" value="2368" />
             <arg name="gps_time" value="false" />
         </include>
