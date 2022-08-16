@@ -13,6 +13,7 @@
   <arg name="use_ssc" default="false" />
   <arg name="use_tf" default="false" />
   <arg name="use_nvidia_cameras" default="false" /> 
+  <arg name="rectify" default="false" /> 
 
   <!-- LIDAR front - Ouster -->
   <include if="$(arg use_lidar_front)" file="$(find vehicle_platform)/launch/sensors/lidar_front.launch">
@@ -26,11 +27,13 @@
   <!-- Front Left Camera -->
   <include if="$(arg use_camera_fl)" file="$(find vehicle_platform)/launch/sensors/camera_fl.launch">
     <arg name="acquisition_rate" value="$(arg acquisition_rate)" />
+    <arg name="rectify" value="$(arg rectify)" />
   </include>
 
   <!-- Front Right Camera -->
   <include if="$(arg use_camera_fr)" file="$(find vehicle_platform)/launch/sensors/camera_fr.launch">
     <arg name="acquisition_rate" value="$(arg acquisition_rate)" />
+    <arg name="rectify" value="$(arg rectify)" />
   </include>
 
   <!-- RADARS -->
@@ -50,5 +53,7 @@
   <include if="$(arg use_tf)" file="$(find vehicle_platform)/launch/sensors/tf.launch" />
 
   <!-- REMOTE NVIDIA CAMERAS -->
-  <include if="$(arg use_nvidia_cameras)" file="$(find vehicle_platform)/launch/sensors/nvidia_cameras.launch" />
+  <include if="$(arg use_nvidia_cameras)" file="$(find vehicle_platform)/launch/sensors/nvidia_cameras.launch">
+    <arg name="rectify" value="$(arg rectify)" />
+  </include>
 </launch>
