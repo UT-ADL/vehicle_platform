@@ -1,19 +1,21 @@
 <?xml version="1.0"?>
 <launch>
   <!-- Args to enable each sensor -->
-  <arg name="use_lidar_center" default="false" />
-  <arg name="use_lidar_front" default="false" />
+  <arg name="use_lidar_center"      default="false" />
+  <arg name="use_lidar_front"       default="false" />
   <arg name="use_lidar_front_image" default="false" />
-  <arg name="use_camera_fl" default="false" />
-  <arg name="use_camera_fr" default="false" />
-  <arg name="acquisition_rate" default="10" />
-  <arg name="use_radar_fc" default="false" />
-  <arg name="use_gnss" default="false" />
-  <arg name="use_dbw" default="false" />
-  <arg name="use_ssc" default="false" />
-  <arg name="use_tf" default="false" />
-  <arg name="use_nvidia_cameras" default="false" /> 
-  <arg name="rectify" default="false" /> 
+  <arg name="use_camera_fl"         default="false" />
+  <arg name="use_camera_fr"         default="false" />
+  <arg name="use_lexus_model"       default="true" />
+  <arg name="acquisition_rate"      default="10" />
+  <arg name="use_radar_fc"          default="false" />
+  <arg name="use_gnss"              default="false" />
+  <arg name="use_dbw"               default="false" />
+  <arg name="use_ssc"               default="false" />
+  <arg name="use_tf"                default="false" />
+  <arg name="use_nvidia_cameras"    default="false" /> 
+  <arg name="rectify"               default="false" /> 
+
 
   <!-- LIDAR front - Ouster -->
   <include if="$(arg use_lidar_front)" file="$(find vehicle_platform)/launch/sensors/lidar_front.launch">
@@ -56,4 +58,9 @@
   <include if="$(arg use_nvidia_cameras)" file="$(find vehicle_platform)/launch/sensors/nvidia_cameras.launch">
     <arg name="rectify" value="$(arg rectify)" />
   </include>
+
+  <!-- Lexus model -->
+  <include if="$(arg use_lexus_model)" file="$(find vehicle_platform)/launch/lexus_model.launch" />
+
+
 </launch>
