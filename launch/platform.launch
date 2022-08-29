@@ -4,6 +4,7 @@
   <arg name="use_lidar_center"      default="false" />
   <arg name="use_lidar_front"       default="false" />
   <arg name="use_lidar_front_image" default="false" />
+  <arg name="range_img_max"         default="50.0" />  <!-- Front lidar img -->
   <arg name="use_camera_fl"         default="false" />
   <arg name="use_camera_fr"         default="false" />
   <arg name="use_lexus_model"       default="true" />
@@ -19,7 +20,8 @@
 
   <!-- LIDAR front - Ouster -->
   <include if="$(arg use_lidar_front)" file="$(find vehicle_platform)/launch/sensors/lidar_front.launch">
-    <arg name="image" value="$(arg use_lidar_front_image)" />
+    <arg name="image"         value="$(arg use_lidar_front_image)" />
+    <arg name="range_img_max" value="$(arg range_img_max)" />
   </include>
 
   <!-- LIDAR center - Velodyne -->
