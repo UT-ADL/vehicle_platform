@@ -1,8 +1,8 @@
 <launch>
   <include file="$(find vehicle_platform)/launch/platform.launch">
     <!-- Args to enable all sensors -->
-    <arg name="use_lidar_front" value="true" />
     <arg name="use_lidar_center" value="true" />
+    <arg name="use_lidar_front" value="true" />
     <arg name="use_camera_fl" value="true" />
     <arg name="use_camera_fr" value="true" />
     <arg name="use_radar_fc" value="true" />
@@ -12,5 +12,5 @@
     <arg name="use_diagnostics" default="false" />
   </include>
 
-  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find vehicle_platform)/config/platform_sensors.rviz" required="true" />
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find vehicle_platform)/rviz/platform_sensors.rviz" required="true" />
 </launch>

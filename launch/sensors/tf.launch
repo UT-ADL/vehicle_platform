@@ -1,0 +1,6 @@
+<launch>
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="vehicle_platform_frames">
+    <remap from="robot_description" to="vehicle_platform_frames/robot_description" />
+    <param name="robot_description" textfile="$(find vehicle_platform)/config/platform.urdf" />
+  </node>
+</launch>

@@ -1,0 +1,12 @@
+<launch>
+  <arg name="acquisition_rate" default="10" />
+  <arg name="rectify" default="false" />
+
+  <include file="$(find vehicle_platform)/launch/drivers/avt_vimba_camera.launch">
+    <arg name="name" value="camera_fl" />
+    <arg name="frame_id" value="camera_fl" />
+    <arg name="ip" value="192.168.20.1" />
+    <arg name="acquisition_rate" value="$(arg acquisition_rate)" />
+    <arg name="image_proc" value="$(arg rectify)" />
+  </include>
+</launch>

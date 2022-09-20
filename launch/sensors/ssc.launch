@@ -1,0 +1,8 @@
+<launch>
+  <include file="$(find ssc_pm_lexus)/launch/speed_steering_control.launch" >
+    <arg name="speed_model_json" value="$(find vehicle_platform)/config/ssc/speed_model.json" />
+    <arg name="steering_model_json" value="$(find vehicle_platform)/config/ssc/steering_model.json" />
+    <arg name="veh_controller_json" value="$(find vehicle_platform)/config/ssc/veh_controller.json" />
+    <arg name="veh_interface_json" value="$(find vehicle_platform)/config/ssc/veh_interface.json" />
+  </include>
+</launch>

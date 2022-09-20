@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <launch>
-  <include file="$(find vehicle_platform)/launch/pacmod_game_control_nojoy.launch">
+  <include file="$(find vehicle_platform)/launch/drivers/pacmod_game_control_nojoy.launch">
     <arg name="launch_pacmod" value="true" />
     <arg name="pacmod_can_hardware_id" value="10761" />
     <arg name="pacmod_vehicle_type" value="LEXUS_RX_450H" />
     <arg name="controller_type" value="LOGITECH_G29" />
   </include>
 
-  <include file="$(find vehicle_platform)/launch/nvidia_cameras.launch">
+  <include file="$(find vehicle_platform)/launch/sensors/nvidia_cameras.launch">
     <arg name="encoder" value="h264" />
     <arg name="h264_bitrate" value="2000000" />
   </include>
