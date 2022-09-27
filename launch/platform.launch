@@ -62,7 +62,7 @@
   </include>
 
   <!-- Lexus model -->
-  <include if="$(arg use_lexus_model)" file="$(find vehicle_platform)/launch/lexus_model.launch" />
+  <include if="$(arg use_lexus_model)" file="$(find vehicle_platform)/launch/sensors/lexus_model.launch" />
 
 
 </launch>
