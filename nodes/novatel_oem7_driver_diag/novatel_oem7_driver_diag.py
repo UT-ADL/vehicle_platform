@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
 
 import rospy
 from diagnostic_msgs.msg import DiagnosticArray, DiagnosticStatus
