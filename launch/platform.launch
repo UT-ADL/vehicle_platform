@@ -10,6 +10,7 @@
   <arg name="use_lexus_model"       default="true" />
   <arg name="acquisition_rate"      default="10" />
   <arg name="use_radar_fc"          default="false" />
+  <arg name="enable_raw_radar"      default="true" />
   <arg name="use_gnss"              default="false" />
   <arg name="use_dbw"               default="false" />
   <arg name="use_ssc"               default="false" />
@@ -42,7 +43,9 @@
 
   <!-- RADARS -->
   <!-- Front Center ESR  -->
-  <include if="$(arg use_radar_fc)" file="$(find vehicle_platform)/launch/sensors/radar_fc.launch" />
+  <include if="$(arg use_radar_fc)" file="$(find vehicle_platform)/launch/sensors/radar_fc.launch">
+    <arg name="enable_raw_radar"        value="$(arg enable_raw_radar)" />
+  </include>
 
   <!-- GNSS -->
   <include if="$(arg use_gnss)" file="$(find vehicle_platform)/launch/sensors/gnss.launch" />
