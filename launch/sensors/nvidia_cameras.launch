@@ -7,7 +7,7 @@
     <arg name="encoder" default="jpg" doc="{jpg, h264}"/>
     <arg name="uncompress" default="false" doc="uncompress images"/>
     <arg name="rectify" default="false" doc="rectify images"/>
-    <arg name="h264_bitrate" default="8000000" doc="H264 Bitrate"/>
+    <arg name="h264_bitrate" default="2000000" doc="H264 Bitrate"/>
     <arg name="use_remote_driver" default="true" doc="Start the driver. Can be set to false to work with bags."/>
 
     <include file="$(find vehicle_platform)/launch/drivers/nvidia_cameras_driver.launch">
