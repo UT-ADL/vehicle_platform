@@ -15,7 +15,8 @@
   <arg name="use_dbw"               default="false" />
   <arg name="use_ssc"               default="false" />
   <arg name="use_tf"                default="false" />
-  <arg name="use_nvidia_cameras"    default="false" /> 
+  <arg name="use_nvidia_cameras"    default="false" />
+  <arg name="nvidia_cam_encoding"   default="jpg" doc="{jpg, h264, h265, vp9}" />
   <arg name="rectify"               default="false" /> 
 
 
@@ -62,6 +63,7 @@
   <!-- REMOTE NVIDIA CAMERAS -->
   <include if="$(arg use_nvidia_cameras)" file="$(find vehicle_platform)/launch/sensors/nvidia_cameras.launch">
     <arg name="rectify" value="$(arg rectify)" />
+    <arg name="encoder" value="$(arg nvidia_cam_encoding)" />
   </include>
 
   <!-- Lexus model -->
