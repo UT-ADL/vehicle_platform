@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<launch>
+
+   <!-- Absolute path to the bag file with the board -->
+   <arg name="bagfile"   default="" />
+
+   <!-- Which camera to check -->
+   <arg name="original_image_topic"       default="/interfacea/link2/image" />
+   <arg name="original_cam_info_topic"    default="/interfacea/link2/camera_info" />
+   <arg name="publish_cam_info_to"        default="/camera/camera_info" />
+   <!-- Use custom yaml file with different intrinsics -->
+   <arg name="use_cam_info_from_yaml"     default="True" />
+   <arg name="cam_info_yaml_file"         default=""  />
+   <!-- board size - number of internal corners -->
+   <arg name="board_s"                    default="8x11"  />
+
+
+   <!-- Play bag, in quiet mode -q -->
+   <node pkg="rosbag" type="play" name="player" output="screen" args="$(arg bagfile) -q --topics $(arg original_image_topic)/compressed $(arg original_cam_info_topic)"/>
+   
+   <!-- Decompress image -->
+   <node pkg="image_transport" type="republish" name="img_decompress" output="screen" args="compressed in:=$(arg original_image_topic) out:=/camera/image_raw" />
+
+
+   <!-- Publish intrinsics: existing from bag or overwrite with custom ones from yaml file-->
+   <node unless="$(arg use_cam_info_from_yaml)" pkg="topic_tools" type="relay" name="relay_camera_info" args="$(arg original_cam_info_topic) /camera/camera_info" />
+
+   <node if="$(arg use_cam_info_from_yaml)" pkg="vehicle_platform" type="custom_camera_info_publisher.py" name="custom_camera_info" output="screen" >
+      <param name="original_image_topic"     value="$(arg original_image_topic)" />
+      <param name="original_cam_info_topic"  value="$(arg original_cam_info_topic)" />
+      <param name="cam_info_yaml_file"       value="$(arg cam_info_yaml_file)" />
+   </node>
+
+   <!-- Rectify camera image - will be subscribed by the checker node -->
+   <group ns="camera">
+      <node pkg="image_proc" type="image_proc" name="image_proc" output="screen" />
+   </group>
+
+   <!-- Camera check -->
+   <!-- For running in separate console window using command line -->
+   <!-- rosrun camera_calibration cameracheck.py -s 9x11 monocular:=/camera image:=image_rect -->
+   <node pkg="camera_calibration" type="cameracheck.py" name="calib_check" output="screen" args="-s $(arg board_s) monocular:=/camera image:=image_rect"/>
+
+</launch>
