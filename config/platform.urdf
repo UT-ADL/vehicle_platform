@@ -13,16 +13,8 @@
   <link name="interfacea_link1" />
   <link name="interfacea_link2" />
   <link name="interfacea_link3" />
-  <link name="ground_zero" />
 
   <!-- Sensor Transforms -->
-
-  <!-- Ground zero testing-->
-   <joint name="ground_zero" type="fixed" >
-    <parent link="base_link" />
-    <child link="ground_zero" />
-    <origin xyz="0 0 -0.6" rpy="0 0 0" />
-  </joint>
 
   <!-- base_footprint -->
   <joint name="base_footprint" type="fixed" >
