@@ -75,25 +75,25 @@
   <joint name="interfacea_link0" type="fixed" >
     <parent link="lidar_center" />
     <child link="interfacea_link0" />
-    <origin xyz="0.514 0.404 -0.472" rpy="-1.572367 0.051313 -0.704764" />
+    <origin xyz="0.77 0.62 -0.49" rpy="-1.576381 0.001396 -0.182561" />
   </joint>
 
   <joint name="interfacea_link1" type="fixed" >
     <parent link="lidar_center" />
     <child link="interfacea_link1" />
-    <origin xyz="0.759 -0.336 -0.530" rpy="-1.631359 -0.029321 -2.525666" />
+    <origin xyz="0.83 -0.51 -0.49" rpy="-1.63537 0.001919 -2.844538" />
   </joint>
 
   <joint name="interfacea_link2" type="fixed" >
     <parent link="lidar_center" />
     <child link="interfacea_link2" />
-    <origin xyz="0.987 0.036 -0.570" rpy="-1.601863 0.033859 -1.533795" />
+    <origin xyz="0.89 0.04 -0.49" rpy="-1.601863 0.033684 -1.533795" />
   </joint>
 
   <joint name="interfacea_link3" type="fixed" >
     <parent link="lidar_center" />
     <child link="interfacea_link3" />
-    <origin xyz="0.954 0.142 -0.502" rpy="-1.589122 0.014137 -1.541823" />
+    <origin xyz="0.89 0.09 -0.49" rpy="-1.58912 0.024434 -1.533097" />
   </joint> 
 
 
