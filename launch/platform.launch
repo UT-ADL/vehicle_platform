@@ -1,121 +1,73 @@
+<?xml version="1.0"?>
 <launch>
   <!-- Args to enable each sensor -->
-  <arg name="use_lidar" default="false" />
-  <arg name="lidar_min_dist" default="0.4" />
-  <arg name="use_camera_fl" default="false" />
-  <arg name="use_camera_fr" default="false" />
-  <arg name="use_mobileye" default="false" />
-  <arg name="use_radar_fc" default="false" />
-  <arg name="use_radar_fl" default="false" />
-  <arg name="use_radar_fr" default="false" />
-  <arg name="use_radar_rl" default="false" />
-  <arg name="use_radar_rr" default="false" />
-  <arg name="use_gps" default="false" />
-  <arg name="use_dbw" default="false" />
-  <arg name="use_ssc" default="false" />
-  <arg name="use_tf" default="false" />
+  <arg name="use_lidar_center"      default="false" />
+  <arg name="use_lidar_front"       default="false" />
+  <arg name="use_lidar_front_image" default="false" />
+  <arg name="range_img_max"         default="50.0" />  <!-- Front lidar img -->
+  <arg name="use_camera_fl"         default="false" />
+  <arg name="use_camera_fr"         default="false" />
+  <arg name="use_lexus_model"       default="true" />
+  <arg name="acquisition_rate"      default="10" />
+  <arg name="use_radar_fc"          default="false" />
+  <arg name="enable_raw_radar"      default="true" />
+  <arg name="use_gnss"              default="false" />
+  <arg name="use_dbw"               default="false" />
+  <arg name="use_ssc"               default="false" />
+  <arg name="use_tf"                default="false" />
+  <arg name="use_nvidia_cameras"    default="false" />
+  <arg name="nvidia_cam_encoding"   default="jpg" doc="{jpg, h264, h265, vp9}" />
+  <arg name="rectify"               default="false" /> 
 
-  <!-- LIDAR -->
-  <include if="$(arg use_lidar)" file="$(find velodyne_pointcloud)/launch/VLP-32C_points.launch">
-    <arg name="frame_id" value="lidar" />
-    <arg name="device_ip" value="192.168.1.201" />
-    <arg name="min_range" value="$(arg lidar_min_dist)" />
+
+  <!-- LIDAR front - Ouster -->
+  <include if="$(arg use_lidar_front)" file="$(find vehicle_platform)/launch/sensors/lidar_front.launch">
+    <arg name="image"         value="$(arg use_lidar_front_image)" />
+    <arg name="range_img_max" value="$(arg range_img_max)" />
   </include>
+
+  <!-- LIDAR center - Velodyne -->
+  <include if="$(arg use_lidar_center)" file="$(find vehicle_platform)/launch/sensors/lidar_center.launch" />
 
   <!-- CAMERAS -->
   <!-- Front Left Camera -->
-  <include if="$(arg use_camera_fl)" file="$(find vehicle_platform)/launch/avt_vimba_camera.launch">
-    <arg name="name" value="camera_fl" />
-    <arg name="frame_id" value="camera_fl" />
-    <arg name="ip" value="192.168.30.1" />
-    <arg name="acquisition_rate" value="20" />
+  <include if="$(arg use_camera_fl)" file="$(find vehicle_platform)/launch/sensors/camera_fl.launch">
+    <arg name="acquisition_rate" value="$(arg acquisition_rate)" />
+    <arg name="rectify" value="$(arg rectify)" />
   </include>
 
   <!-- Front Right Camera -->
-  <include if="$(arg use_camera_fr)" file="$(find vehicle_platform)/launch/avt_vimba_camera.launch">
-    <arg name="name" value="camera_fr" />
-    <arg name="frame_id" value="camera_fr" />
-    <arg name="ip" value="192.168.40.1" />
-    <arg name="acquisition_rate" value="20" />
-  </include>
-
-  <!-- MOBILEYE -->
-  <include if="$(arg use_mobileye)" file="$(find mobileye_560_660)/launch/mobileye_560_660.launch" ns="mobileye">
-    <arg name="sensor_frame_id" value="mobileye" />
-    <!-- TODO: what is the difference between these two frame ids? -->
-    <arg name="viz_frame_id" value="mobileye" />
-    <arg name="use_kvaser" value="true" />
-    <arg name="kvaser_hardware_id" value="10560" />
-    <arg name="kvaser_circuit_id" value="1" />
+  <include if="$(arg use_camera_fr)" file="$(find vehicle_platform)/launch/sensors/camera_fr.launch">
+    <arg name="acquisition_rate" value="$(arg acquisition_rate)" />
+    <arg name="rectify" value="$(arg rectify)" />
   </include>
 
   <!-- RADARS -->
   <!-- Front Center ESR  -->
-  <include if="$(arg use_radar_fc)" file="$(find delphi_esr)/launch/delphi_esr.launch" ns="radar_fc">
-    <arg name="esr_frame_id" value="radar_fc" />
-    <arg name="viz_mature_tracks_only" value="true" />
-    <arg name="use_kvaser" value="true" />
-    <arg name="kvaser_hardware_id" value="50452" />
-    <arg name="kvaser_circuit_id" value="0" />
+  <include if="$(arg use_radar_fc)" file="$(find vehicle_platform)/launch/sensors/radar_fc.launch">
+    <arg name="enable_raw_radar"        value="$(arg enable_raw_radar)" />
   </include>
 
-  <!-- Front Left SSR -->
-  <include if="$(arg use_radar_fl)" file="$(find delphi_srr)/launch/delphi_srr.launch" ns="radar_fl">
-    <arg name="srr_frame_id" value="radar_fl" />
-    <arg name="srr_side" value="left" />
-    <arg name="use_kvaser" value="true" />
-    <arg name="kvaser_hardware_id" value="10560" />
-    <arg name="kvaser_circuit_id" value="2" />
-  </include>
-
-  <!-- Front Right SSR -->
-  <include if="$(arg use_radar_fr)" file="$(find delphi_srr)/launch/delphi_srr.launch" ns="radar_fr">
-    <arg name="srr_frame_id" value="radar_fr" />
-    <arg name="srr_side" value="right" />
-    <arg name="use_kvaser" value="true" />
-    <arg name="kvaser_hardware_id" value="10560" />
-    <arg name="kvaser_circuit_id" value="2" />
-  </include>
-
-  <!-- Rear Left SSR -->
-  <include if="$(arg use_radar_rl)" file="$(find delphi_srr)/launch/delphi_srr.launch" ns="radar_rl">
-    <arg name="srr_frame_id" value="radar_rl" />
-    <arg name="srr_side" value="left" />
-    <arg name="use_kvaser" value="true" />
-    <arg name="kvaser_hardware_id" value="10560" />
-    <arg name="kvaser_circuit_id" value="3" />
-  </include>
-
-  <!-- Rear Right SSR -->
-  <include if="$(arg use_radar_rr)" file="$(find delphi_srr)/launch/delphi_srr.launch" ns="radar_rr">
-    <arg name="srr_frame_id" value="radar_rr" />
-    <arg name="srr_side" value="right" />
-    <arg name="use_kvaser" value="true" />
-    <arg name="kvaser_hardware_id" value="10560" />
-    <arg name="kvaser_circuit_id" value="3" />
-  </include>
-
-  <!-- GPS -->
-  <include if="$(arg use_gps)" file="$(find vehicle_platform)/launch/novatel_gps_driver.launch">
-    <arg name="ip" value="192.168.74.10" />
-    <arg name="port" value="2000" />
-    <arg name="imu_rate" value="100" />
-  </include>
+  <!-- GNSS -->
+  <include if="$(arg use_gnss)" file="$(find vehicle_platform)/launch/sensors/gnss.launch" />
 
   <!-- DRIVE BY WIRE -->
-  <include if="$(arg use_dbw)" file="$(find pacmod3)/launch/pacmod3.launch" ns="pacmod">
-    <arg name="pacmod_vehicle_type" value="LEXUS_RX_450H" />
-    <arg name="use_kvaser" value="true" />
-    <arg name="kvaser_hardware_id" value="10560" />
-    <arg name="kvaser_circuit_id" value="0" />
-  </include>
+  <include if="$(arg use_dbw)" file="$(find vehicle_platform)/launch/sensors/dbw.launch" />
 
   <!-- SSC -->
-  <include if="$(arg use_ssc)" file="$(find ssc_pm_lexus)/launch/speed_steering_control.launch" />
+  <include if="$(arg use_ssc)" file="$(find vehicle_platform)/launch/sensors/ssc.launch" />
 
   <!-- TRANSFORMS -->
-  <node if="$(arg use_tf)" pkg="robot_state_publisher" type="robot_state_publisher" name="vehicle_platform_frames">
-    <remap from="robot_description" to="vehicle_platform_frames/robot_description" />
-    <param name="robot_description" textfile="$(find vehicle_platform)/config/platform.urdf" />
-  </node>
+  <include if="$(arg use_tf)" file="$(find vehicle_platform)/launch/sensors/tf.launch" />
+
+  <!-- REMOTE NVIDIA CAMERAS -->
+  <include if="$(arg use_nvidia_cameras)" file="$(find vehicle_platform)/launch/sensors/nvidia_cameras.launch">
+    <arg name="rectify" value="$(arg rectify)" />
+    <arg name="encoder" value="$(arg nvidia_cam_encoding)" />
+  </include>
+
+  <!-- Lexus model -->
+  <include if="$(arg use_lexus_model)" file="$(find vehicle_platform)/launch/sensors/lexus_model.launch" />
+
+
 </launch>

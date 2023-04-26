@@ -3,18 +3,29 @@
   <version>1.0.0</version>
   <description>The vehicle_platform package</description>
   <license>Closed-Source</license>
-  <author email="icolwell@autonomoustuff.com">Ian Colwell</author>
-  <maintainer email="icolwell@autonomoustuff.com">Ian Colwell</maintainer>
+  <author email="tambet.matiisen@ut.ee">Tambet Matiisen</author>
+  <maintainer email="adl@ut.ee">Autonomous Driving Lab</maintainer>
 
   <buildtool_depend>catkin</buildtool_depend>
 
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>rviz</exec_depend>
+  <exec_depend>nodelet</exec_depend>
+  <exec_depend>image_proc</exec_depend>
+  <exec_depend>image_transport</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>camera_calibration</exec_depend>
+  <exec_depend>topic_tools</exec_depend>
+  <exec_depend>xacro</exec_depend>
+
   <exec_depend>avt_vimba_camera</exec_depend>
-  <exec_depend>velodyne</exec_depend>
-  <exec_depend>mobileye_560_660</exec_depend>
-  <exec_depend>novatel_gps_driver</exec_depend>
+  <exec_depend>velodyne_pointcloud</exec_depend>
+  <exec_depend>ouster_ros</exec_depend>
+  <exec_depend>novatel_oem7_driver</exec_depend>
   <exec_depend>delphi_esr</exec_depend>
-  <exec_depend>delphi_srr</exec_depend>
+  <exec_depend>kvaser_interface</exec_depend>
   <exec_depend>pacmod3</exec_depend>
   <exec_depend>pacmod_game_control</exec_depend>
-  <exec_depend>kvaser_interface</exec_depend>
+  <exec_depend>ssc_pm_lexus</exec_depend>
+
 </package>

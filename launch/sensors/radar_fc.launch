@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="enable_raw_radar"        default="true" />
+
+    <include file="$(find delphi_esr)/launch/delphi_esr.launch" ns="radar_fc">
+        <arg name="esr_frame_id" value="radar_fc" />
+        <arg name="viz_mature_tracks_only" value="true" />
+        <arg name="use_kvaser" value="true" />
+        <arg name="kvaser_hardware_id" value="10761" />
+        <arg name="kvaser_circuit_id" value="1" />
+    </include>
+
+    <!--enabling raw radar detections - turning off in build radar tracking      -->
+    <node if="$(arg enable_raw_radar)" pkg="rostopic" type="rostopic" name="enable_raw_radar" output="screen"
+        args="pub  /radar_fc/parsed_rx/vehicle2_msgs delphi_esr_msgs/EsrVehicle2 'raw_data_enabled: true'" />
+
+</launch>

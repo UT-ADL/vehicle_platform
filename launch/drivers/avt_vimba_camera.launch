@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="name" default="camera" doc="The name of the camera, this sets topic namespaces"/>
+  <arg name="ip" default="" doc="The IP for the camera to connect to"/>
+  <arg name="guid" default="" doc="The GUID for the camera to connect to"/>
+  <arg name="frame_id" default="camera" doc="The frame id of the camera"/>
+  <arg name="image_proc" default="false" doc="Enable the use of image_proc"/>
+  <arg name="acquisition_rate" default="10" doc="Camera framerate in Hz"/>
+  <arg name="width" default="2064" doc="Width of image in pixels"/>
+  <arg name="height" default="1544" doc="Height of image in pixels"/>
+
+  <!-- Image proccessing -->
+  <node if="$(arg image_proc)" name="image_proc" pkg="image_proc" type="image_proc" ns="$(arg name)"/>
+
+  <!-- Camera driver node -->
+  <node name="$(arg name)" pkg="avt_vimba_camera" type="mono_camera_node">
+    <param name="guid" value="$(arg guid)" />
+    <param name="ip" value="$(arg ip)" />
+    <param name="camera_info_url" value="file://$(find vehicle_platform)/config/calib/$(arg name).yaml" />
+
+    <param name="frame_id" value="$(arg frame_id)" />
+    <param name="trig_timestamp_topic" value="" />
+    <param name="show_debug_prints" value="true" />
+    <param name="trigger_source" value="FixedRate" />
+    <param name="acquisition_mode" value="Continuous" />
+    <param name="acquisition_rate" value="$(arg acquisition_rate)" />
+    <param name="pixel_format" value="BayerRG8" />
+
+    <!-- Exposure params  -->
+    <param name="exposure" value="5000" />
+    <param name="exposure_auto" value="Continuous" />
+    <param name="exposure_auto_alg" value="Mean" />
+    <param name="exposure_auto_max" value="50000"/>
+    <param name="exposure_auto_min" value="100"/>
+    <param name="exposure_auto_rate" value="75"/>
+    <param name="exposure_auto_target" value="45"/>
+    <param name="exposure_auto_tol" value="5"/>
+
+    <!-- Gain  -->
+    <param name="gain_auto" value="Continuous" />
+    <param name="gain" value="5" />
+    <param name="gain_auto_max" value="30"/>
+    <param name="gain_auto_min" value="0"/>
+    <param name="gain_auto_rate" value="50"/>
+    <param name="gain_auto_target" value="45"/>
+    <param name="gain_auto_adjust_tol" value="5"/>
+
+    <!-- Whitebalance params -->
+    <param name="whitebalance_auto" value="Continuous" />
+    <param name="balance_ratio_selector" value="Red" />
+    <param name="balance_ratio_abs" value="2.00" />   
+    <param name="whitebalance_auto_tol" value="5"/>
+    <param name="whitebalance_auto_rate" value="20"/>
+
+    <!-- Image params -->
+    <param name="binning_x" value="1" />
+    <param name="binning_y" value="1" />
+    <param name="decimation_x" value="1" />
+    <param name="decimation_y" value="1" />
+    <param name="x_offset" value="8" />
+    <param name="y_offset" value="9" />
+    <param name="width" value="$(arg width)" />
+    <param name="height" value="$(arg height)" />
+
+    <param name="stream_bytes_per_second" value="100000000"/>
+  </node>
+</launch>
