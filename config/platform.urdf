@@ -7,6 +7,7 @@
   <link name="radar_fc" />
   <link name="imu" />
   <link name="lidar" />
+  <link name="lidar_0" />
   <link name="camera_fr" />
   <link name="camera_fl" />
   <link name="interfacea_link0" />
@@ -34,6 +35,13 @@
   <joint name="lidar" type="fixed" >
     <parent link="lidar_center" />
     <child link="lidar" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+
+  <!-- Lidar for Vella -->
+  <joint name="lidar_0" type="fixed" >
+    <parent link="lidar_center" />
+    <child link="lidar_0" />
     <origin xyz="0 0 0" rpy="0 0 0" />
   </joint>
 
