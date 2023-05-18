@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
   <include file="$(find pacmod_game_control)/launch/pacmod_game_control.launch">
-    <arg name="launch_pacmod" value="true" />
+    <arg name="launch_driver" value="true" />
     <arg name="pacmod_can_hardware_id" value="10761" />
     <arg name="pacmod_vehicle_type" value="LEXUS_RX_450H" />
   </include>
