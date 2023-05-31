@@ -10,7 +10,6 @@
     </include>
 
     <!--enabling raw radar detections - turning off in build radar tracking      -->
-    <!--node if="$(arg enable_raw_radar)" pkg="rostopic" type="rostopic" name="enable_raw_radar" output="screen"
-        args="pub /radar_fc/parsed_rx/vehicle2_msgs delphi_esr_msgs/EsrVehicle2 'raw_data_enable: true'" /-->
+    <node if="$(arg enable_raw_radar)" pkg="rostopic" type="rostopic" name="enable_raw_radar" output="screen" args="pub /radar_fc/esr_vehicle_2 delphi_esr_msgs/EsrVehicle2 'raw_data_enable: true'" />
 
 </launch>
