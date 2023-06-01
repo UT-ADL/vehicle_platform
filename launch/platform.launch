@@ -22,8 +22,6 @@
 
   <!-- LIDAR front - Ouster -->
   <include if="$(arg use_lidar_front)" file="$(find vehicle_platform)/launch/sensors/lidar_front.launch">
-    <arg name="image"         value="$(arg use_lidar_front_image)" />
-    <arg name="range_img_max" value="$(arg range_img_max)" />
   </include>
 
   <!-- LIDAR center - Velodyne -->
