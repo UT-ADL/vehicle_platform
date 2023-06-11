@@ -1,5 +1,4 @@
 <launch>
-    <arg name="image" default="false" doc="publish range/intensity/ambient image topic"/>
     <arg name="ouster_ns" default="lidar_front" doc="Namespace for ouster topics and tfs"/>
 
     <group>
@@ -8,7 +7,7 @@
             <arg name="udp_dest" value="192.168.3.100" />
             <arg name="lidar_mode" value="1024x10" />
             <arg name="ouster_ns" value="lidar_front" />
-            <arg name="timestamp_mode" value="TIME_FROM_SYNC_PULSE_IN" />
+            <arg name="timestamp_mode" value="TIME_FROM_ROS_TIME" />
             <arg name="viz" value="false"/>
             <arg name="tf_prefix" value="$(arg ouster_ns)"/>
         </include>
