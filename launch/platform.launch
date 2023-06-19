@@ -3,7 +3,6 @@
   <!-- Args to enable each sensor -->
   <arg name="use_lidar_center"      default="false" />
   <arg name="use_lidar_front"       default="false" />
-  <arg name="use_lidar_front_image" default="false" />
   <arg name="range_img_max"         default="50.0" />  <!-- Front lidar img -->
   <arg name="use_camera_fl"         default="false" />
   <arg name="use_camera_fr"         default="false" />
@@ -21,8 +20,7 @@
 
 
   <!-- LIDAR front - Ouster -->
-  <include if="$(arg use_lidar_front)" file="$(find vehicle_platform)/launch/sensors/lidar_front.launch">
-  </include>
+  <include if="$(arg use_lidar_front)" file="$(find vehicle_platform)/launch/sensors/lidar_front.launch" />
 
   <!-- LIDAR center - Velodyne -->
   <include if="$(arg use_lidar_center)" file="$(find vehicle_platform)/launch/sensors/lidar_center.launch" />
@@ -43,7 +41,7 @@
   <!-- RADARS -->
   <!-- Front Center ESR  -->
   <include if="$(arg use_radar_fc)" file="$(find vehicle_platform)/launch/sensors/radar_fc.launch">
-    <arg name="enable_raw_radar"        value="$(arg enable_raw_radar)" />
+    <arg name="enable_raw_radar" value="$(arg enable_raw_radar)" />
   </include>
 
   <!-- GNSS -->
