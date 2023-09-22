@@ -28,7 +28,7 @@
   <joint name="lidar_center" type="fixed" >
     <parent link="base_link" />
     <child link="lidar_center" />
-    <origin xyz="1.02 0 1.51" rpy="-0.02879793 0.0003490659 -0.0459" />
+    <origin xyz="1.02 0 1.51" rpy="-0.02879793 0.0003490659 -0.055" />
   </joint>
 
   <!-- Lidar -->
