@@ -1,34 +1,27 @@
 <launch>
-  <!-- NO PARAMS HERE - PARAMS MUST BE SET ON THE NVIDIA DRIVE -->
-  <!-- NO CONFIG FILES HERE - CONFIG FILES MUST BE CROSSCOMPILED ALONG WITH THE NODE -->
-  <!-- https://github.com/UT-ADL/nvidia_gmsl_driver_ros -->
-
+  <!-- Ecosystem: -->
+  <!-- NVIDIA drive: Cameras executable application  -->
+  <!-- NVIDIA drive: Configuration file at /etc/opt/clevon/configs/camera.json  -->
+  <!-- Receiver PC: ROS node with configs for calib and cameras  -->
+  <!-- https://gitlab.cs.ut.ee/autonomous-driving-lab/video-receiver -->
+  
+  <!-- Image size 1920x1208 -->
+  <!-- Encoding MJPG  -->
+  
   <arg name="host" default="" doc="Hostname for Nvidia Drive"/>
   <arg name="user" default="" doc="Username for Nvidia Drive"/>
-  <arg name="framerate" default="30" doc="camera framerate"/>
-  <arg name="encoder" default="jpg" doc="{jpg, h264, h265, vp9}"/>
+  <arg name="encoder" default="jpg" doc="{jpg, h265}"/>
   <arg name="uncompress" default="false" doc="uncompress images"/>
   <arg name="rectify" default="false" doc="rectify images"/>
-  <arg name="bitrate" default="2000000" doc="H264 Bitrate"/>
-  <arg name="use_remote_driver" default="true" doc="Start the driver. Can be set to false to work with bags."/>
-  <arg name="output_width" default="1920" doc="Desired output width."/>
-  <arg name="output_height" default="1208" doc="Desired output height."/>
+  <arg name="use_remote_driver" default="true" doc="Start local Nvidia video receiver node. Start cameras application in Nvidia Drive."/>
 
+  <!-- Use video receiver node and start camera application in Nvidia drive -->
   <group if="$(arg use_remote_driver)">
-    <machine name="nvidia_drive"
-             address="$(arg host)"
-             user="$(arg user)"
-             env-loader="/home/nvidia/crosscompiled/ros/install_isolated/env.sh"/>
-    <node machine="nvidia_drive" pkg="nvidia_gmsl_driver_ros" type="nvidia_gmsl_driver_ros_node"
-          name="nvidia_gmsl_driver_ros">
-      <param name="framerate" value="$(arg framerate)"/>
-      <param name="encoder" value="$(arg encoder)"/>
-      <param name="bitrate" value="$(arg bitrate)"/>
-      <param name="output_width" value="$(arg output_width)" /> 
-      <param name="output_height" value="$(arg output_height)" />
-    </node>
+    <include file="$(find video_receiver)/launch/start_nvidia_cameras.launch">
+        <arg name="encoder" value="$(arg encoder)"/>
+    </include>
   </group>
-
+  
   <!-- Published in /interfaceX/linkY/repub-->
   <group if="$(eval uncompress or rectify)">
     <node pkg="image_transport" type="republish" name="interfacea_link0_uncompress_$(arg encoder)"
@@ -75,6 +68,7 @@
       <remap from="/interfacea/link3/repub/camera_info" to="/interfacea/link3/camera_info"/>
       <remap from="/image_rect" to="interfacea/link3/rect"/>
     </node>
-  </group>
+  </group>  
+  
 </launch>
 
