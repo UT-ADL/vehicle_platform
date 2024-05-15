@@ -17,8 +17,9 @@
 
   <!-- Use video receiver node and start camera application in Nvidia drive -->
   <group if="$(arg use_remote_driver)">
-    <node pkg="video_receiver" type="start_nvidia_video_sender.sh" name="start_nvidia_video_sender" required="true" output="screen" args="encoder"/>
-    <node pkg="video_receiver" type="video_receiver_node" name="video_receiver" required="true" output="screen"/>
+    <include file="$(find video_receiver)/launch/start_nvidia_cameras.launch">
+        <arg name="encoder" value="$(arg encoder)"/>
+    </include>
   </group>
   
   <!-- Published in /interfaceX/linkY/repub-->
