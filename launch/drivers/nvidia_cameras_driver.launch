@@ -8,8 +8,6 @@
   <!-- Image size 1920x1208 -->
   <!-- Encoding MJPG  -->
   
-  <arg name="host" default="" doc="Hostname for Nvidia Drive"/>
-  <arg name="user" default="" doc="Username for Nvidia Drive"/>
   <arg name="encoder" default="jpg" doc="{jpg, h265}"/>
   <arg name="uncompress" default="false" doc="uncompress images"/>
   <arg name="rectify" default="false" doc="rectify images"/>
