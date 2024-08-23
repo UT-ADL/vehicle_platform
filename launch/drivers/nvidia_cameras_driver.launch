@@ -1,46 +1,55 @@
 <launch>
   <!-- Ecosystem: -->
-  <!-- NVIDIA drive: Cameras executable application  -->
+  <!-- NVIDIA drive: Cameras executable application at /opt/clevon/bin/cameras  -->
   <!-- NVIDIA drive: Configuration file at /etc/opt/clevon/configs/camera.json  -->
   <!-- Receiver PC: ROS node with configs for calib and cameras  -->
+  <!-- Receiver PC: Configuration file at config/cameras.yaml  -->
   <!-- https://gitlab.cs.ut.ee/autonomous-driving-lab/video-receiver -->
   
   <!-- Image size 1920x1208 -->
-  <!-- Encoding MJPG  -->
   
-  <arg name="encoder" default="jpg" doc="{jpg, h265}"/>
-  <arg name="uncompress" default="false" doc="uncompress images"/>
-  <arg name="rectify" default="false" doc="rectify images"/>
-  <arg name="use_remote_driver" default="true" doc="Start local Nvidia video receiver node. Start cameras application in Nvidia Drive."/>
+  <arg name="encoder"           default="h264"  doc="jpeg, h264, h265"/>
+  <arg name="fps"               default="30"    doc="1..30 Hz"/>
+  <arg name="logs"              default="false" doc="Print FPS, bitrate, encoder per every camera."/>
+  <arg name="uncompress"        default="false" doc="uncompress images"/>
+  <arg name="rectify"           default="false" doc="rectify images"/>
+  <arg name="use_remote_driver" default="true"  doc="Start local Nvidia video receiver node. Start cameras application in Nvidia Drive."/>
 
   <!-- Use video receiver node and start camera application in Nvidia drive -->
   <group if="$(arg use_remote_driver)">
     <include file="$(find video_receiver)/launch/start_nvidia_cameras.launch">
         <arg name="encoder" value="$(arg encoder)"/>
+        <arg name="fps" value="$(arg fps)" />
+        <arg name="logs" value="$(arg logs)" />
     </include>
   </group>
   
   <!-- Published in /interfaceX/linkY/repub-->
   <group if="$(eval uncompress or rectify)">
     <node pkg="image_transport" type="republish" name="interfacea_link0_uncompress_$(arg encoder)"
-          args="$(eval 'compressed' if encoder=='jpg' else encoder)">
+          args="$(eval 'compressed' if encoder=='jpeg' else encoder)">
       <remap from="in" to="interfacea/link0/image"/>
       <remap from="out" to="interfacea/link0/repub/image"/>
     </node>
     <node pkg="image_transport" type="republish" name="interfacea_link1_uncompress_$(arg encoder)"
-          args="$(eval 'compressed' if encoder=='jpg' else encoder)">
+          args="$(eval 'compressed' if encoder=='jpeg' else encoder)">
       <remap from="in" to="interfacea/link1/image"/>
       <remap from="out" to="interfacea/link1/repub/image"/>
     </node>
     <node pkg="image_transport" type="republish" name="interfacea_link2_uncompress_$(arg encoder)"
-          args="$(eval 'compressed' if encoder=='jpg' else encoder)">
+          args="$(eval 'compressed' if encoder=='jpeg' else encoder)">
       <remap from="in" to="interfacea/link2/image"/>
       <remap from="out" to="interfacea/link2/repub/image/"/>
     </node>
     <node pkg="image_transport" type="republish" name="interfacea_link3_uncompress_$(arg encoder)"
-          args="$(eval 'compressed' if encoder=='jpg' else encoder)">
+          args="$(eval 'compressed' if encoder=='jpeg' else encoder)">
       <remap from="in" to="interfacea/link3/image"/>
       <remap from="out" to="interfacea/link3/repub/image"/>
+    </node>
+    <node pkg="image_transport" type="republish" name="interfaceb_link0_uncompress_$(arg encoder)"
+          args="$(eval 'compressed' if encoder=='jpeg' else encoder)">
+      <remap from="in" to="interfaceb/link0/image"/>
+      <remap from="out" to="interfaceb/link0/repub/image"/>
     </node>
   </group>
 
@@ -65,6 +74,11 @@
       <remap from="/image_mono" to="interfacea/link3/repub/image"/>
       <remap from="/interfacea/link3/repub/camera_info" to="/interfacea/link3/camera_info"/>
       <remap from="/image_rect" to="interfacea/link3/rect"/>
+    </node>
+    <node pkg="nodelet" type="nodelet" name="interfaceb_link0_rectifier" args="standalone image_proc/rectify">
+      <remap from="/image_mono" to="interfaceb/link0/repub/image"/>
+      <remap from="/interfaceb/link0/repub/camera_info" to="/interfaceb/link0/camera_info"/>
+      <remap from="/image_rect" to="interfaceb/link0/rect"/>
     </node>
   </group>  
   
