@@ -1,11 +1,16 @@
 <launch>
-    <arg name="encoder" default="jpg" doc="{jpg, h264, h265, vp9}"/>
-    <arg name="uncompress" default="false" doc="uncompress images"/>
-    <arg name="rectify" default="false" doc="rectify images"/>
-    <arg name="use_remote_driver" default="true" doc="Start the driver. Can be set to false to work with bags."/>
+    <!-- Encoding is configured in the config files in NVIDIA drive and in receiver PC.  -->
+    <arg name="encoder"           default="h264"  doc="jpeg, h264, h265"/>
+    <arg name="fps"               default="30"    doc="1..30 Hz"/>
+    <arg name="logs"              default="false" doc="Print FPS, bitrate, encoder per every camera."/>
+    <arg name="uncompress"        default="false" doc="uncompress images"/>
+    <arg name="rectify"           default="false" doc="rectify images"/>
+    <arg name="use_remote_driver" default="true"  doc="Start local Nvidia video receiver node. Start cameras application in Nvidia Drive."/>
 
     <include file="$(find vehicle_platform)/launch/drivers/nvidia_cameras_driver.launch">
         <arg name="encoder" value="$(arg encoder)" />
+        <arg name="fps" value="$(arg fps)" />
+        <arg name="logs" value="$(arg logs)" />
         <arg name="uncompress" value="$(arg uncompress)" />
         <arg name="rectify" value="$(arg rectify)" />
         <arg name="use_remote_driver" default="$(arg use_remote_driver)" />
