@@ -3,7 +3,6 @@
   <!-- Args to enable each sensor -->
   <arg name="use_lidar_center"      default="false" />
   <arg name="use_lidar_front"       default="false" />
-  <arg name="use_lidar_front_image" default="false" />
   <arg name="range_img_max"         default="50.0" />  <!-- Front lidar img -->
   <arg name="use_camera_fl"         default="false" />
   <arg name="use_camera_fr"         default="false" />
@@ -16,15 +15,14 @@
   <arg name="use_ssc"               default="false" />
   <arg name="use_tf"                default="false" />
   <arg name="use_nvidia_cameras"    default="false" />
-  <arg name="nvidia_cam_encoding"   default="jpg" doc="{jpg, h264, h265, vp9}" />
+  <arg name="nvidia_encoder"        default="h264"  doc="{jpeg, h264, h265}" />
+  <arg name="nvidia_fps"            default="30"    doc="1..30 Hz" />
+  <arg name="nvidia_logs"           default="false" doc="Print FPS, bitrate, encoder per every camera."/>
   <arg name="rectify"               default="false" /> 
 
 
   <!-- LIDAR front - Ouster -->
-  <include if="$(arg use_lidar_front)" file="$(find vehicle_platform)/launch/sensors/lidar_front.launch">
-    <arg name="image"         value="$(arg use_lidar_front_image)" />
-    <arg name="range_img_max" value="$(arg range_img_max)" />
-  </include>
+  <include if="$(arg use_lidar_front)" file="$(find vehicle_platform)/launch/sensors/lidar_front.launch" />
 
   <!-- LIDAR center - Velodyne -->
   <include if="$(arg use_lidar_center)" file="$(find vehicle_platform)/launch/sensors/lidar_center.launch" />
@@ -45,7 +43,7 @@
   <!-- RADARS -->
   <!-- Front Center ESR  -->
   <include if="$(arg use_radar_fc)" file="$(find vehicle_platform)/launch/sensors/radar_fc.launch">
-    <arg name="enable_raw_radar"        value="$(arg enable_raw_radar)" />
+    <arg name="enable_raw_radar" value="$(arg enable_raw_radar)" />
   </include>
 
   <!-- GNSS -->
@@ -62,8 +60,10 @@
 
   <!-- REMOTE NVIDIA CAMERAS -->
   <include if="$(arg use_nvidia_cameras)" file="$(find vehicle_platform)/launch/sensors/nvidia_cameras.launch">
-    <arg name="rectify" value="$(arg rectify)" />
-    <arg name="encoder" value="$(arg nvidia_cam_encoding)" />
+      <arg name="encoder" value="$(arg nvidia_encoder)" />
+      <arg name="fps" value="$(arg nvidia_fps)" />
+      <arg name="logs" value="$(arg nvidia_logs)" />
+      <arg name="rectify" value="$(arg rectify)" />
   </include>
 
   <!-- Lexus model -->
